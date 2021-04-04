@@ -1,6 +1,8 @@
 import firebase from "firebase/app"
+import 'firebase/storage'
+import 'firebase/firestore'
 
-const app = firebase.initializeApp({
+const firebaseConfig = firebase.initializeApp({
   apiKey: "AIzaSyCdd5SW1RgP0oct6-iWJMio0RQBSo3ko5Y",
   authDomain: "portfolio-7ed56.firebaseapp.com",
   projectId: "portfolio-7ed56",
@@ -10,4 +12,9 @@ const app = firebase.initializeApp({
   measurementId: "G-BNLE35FDSX"
 })
 
-export default app
+const projectStorage = firebase.storage()
+const projectFirestore = firebase.firestore()
+
+export { projectFirestore, projectStorage }
+
+export default firebaseConfig

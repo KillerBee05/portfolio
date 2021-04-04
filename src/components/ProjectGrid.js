@@ -3,6 +3,7 @@ import { Modal, Grid } from '@material-ui/core'
 import Projects from './Projects'
 import AddButton from './AddButton'
 import AddProject from './AddProject'
+import EditProject from './EditProject'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,16 +47,16 @@ const ProjectGrid = () => {
    setOpen(true)
  };
 
- const handleEditOpen = (project) => {
-    setOpen(true)
-    setEditFlag(true)
-    getProjectData(project)
- };
+  const handleEditOpen = (project) => {
+      setOpen(true)
+      setEditFlag(true)
+      setEditProjectData(project)
+  };
 
- const handleClose = () => {
-   setOpen(false)
-   setEditFlag(false)
- };
+  const handleClose = () => {
+     setOpen(false)
+     setEditFlag(false)
+  };
 
   useEffect(() => {
     const getProjects = async () => {
@@ -78,7 +79,7 @@ const ProjectGrid = () => {
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(project),
+      body: JSON.stringify(project)
     })
 
     const data = await response.json()
@@ -94,37 +95,30 @@ const ProjectGrid = () => {
     setProjects(projects.filter(project => project.id !== id))
   }
 
-  const updateProject = async (upatedData) => {
-    debugger;
-    const id = upatedData.id
+  const updateProject = async (updatedData) => {
+    const id = updatedData.id
     const response = await fetch('http://localhost:5000/portfolio-7ed56/us-central1/projectApi', {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(upatedData),
+      body: JSON.stringify(updatedData),
     })
 
     const data = await response.json()
-    // const dataIndex = projects.findIndex(project => project.id == id)
-    // const newData = [{...projects[dataIndex]}]
-    // data: this.state.data.map(el => (el.id === id ? {...el, text} : el))
-    // newData.push(data)
-    // setProjects(projects, newData)
-    setProjects(projects => projects.map(project => (project.id === id ? {...project, data} : project)))
+    const dataIndex = projects.findIndex(project => project.id === id)
+    const newData = [...projects]
+    newData[dataIndex] = data
+    setProjects(newData)
   }
 
-  const getProjectData = (data) => {
-    setEditProjectData(data)
-    // call modal window
-    // pass in these props into the addProject component
-  }
+
 
 
   const body = (
      <div style={modalStyle} className={classes.paper}>
-       {editFlag === false ? <h2 id="simple-modal-title">Add Project Here!</h2> : <h2 id="simple-modal-title">Update Project!</h2>}
-       <AddProject onAdd={addProject}  projectData={editProjectData} editFlag={editFlag} onUpdate={updateProject}/>
+       {editFlag === false ? <h2 id="simple-modal-title">Add Project Here!</h2> : <h2 id="simple-modal-title">Update {editProjectData.projectName} Project!</h2>}
+       {editFlag === false ? <AddProject onAdd={addProject} /> : <EditProject projectData={editProjectData} onUpdate={updateProject}/>}
      </div>
    );
 

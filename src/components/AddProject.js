@@ -1,60 +1,59 @@
 import {useState} from 'react'
 import {TextField} from '@material-ui/core'
 import AddButton from './AddButton'
+import ProgressBar from './ProgressBar'
+import moment from "moment";
 
 
-const AddProject = ({onAdd, editFlag, projectData, onUpdate}) => {
+const AddProject = ({onAdd}) => {
   const [projectName, setProjectName] = useState('')
   const [description, setDescription] = useState('')
-  const [image, setImage] = useState('')
-  const [time, setTime] = useState ('')
   const [link, setLink] = useState('')
+  const [image, setImage] = useState(null)
+  const [error, setError] = useState(null)
+  const [url, setUrl] = useState('')
+
+  const types = ['image/png', 'image/jpeg']
 
   const addProject = (e) => {
+    debugger;
     e.preventDefault()
+    const createdAt = moment().format("MMMM Do YYYY")
 
-    onAdd({projectName, image, description, time, link})
+    onAdd({projectName, url, description, createdAt, link})
   }
 
-  const updateProject = (e) => {
-    e.preventDefault()
-    
-    const id = projectData.id
-    onUpdate({id, projectName, image, description, time, link})
+  //TODO need to render only the progress bar. and not send the image until submit
+  const imageHandler = (e) => {
+    const selected = e.target.files[0]
+    if(selected && types.includes(selected.type)){
+      setImage(selected)
+      setError(null)
+    } else {
+      setImage(null)
+      setError('Please select an image file (png or jpeg)')
+    }
   }
-
 
   return(
      <div>
-     {editFlag === false ?
        <form>
          <TextField id="standard-basic" value={projectName} label="Project Name" fullWidth onChange={(e) => setProjectName(e.target.value)} />
 
-         <TextField id="fileToUpload" label="Image" fullWidth type="file" />
+         <TextField id="fileToUpload" label="Image" fullWidth type="file" onChange={imageHandler}/>
+         <span>
+          { error && <div> { error } </div> }
+          { image && <div> { image.name } </div> }
+         </span>
 
          <TextField id="standard-basic" label="Description" value={description} fullWidth  onChange={(e) => setDescription(e.target.value)} />
 
-         <TextField id="standard-basic" label="Time added" value={time} onChange={(e) => setTime(e.target.value)} />
-
          <TextField id="standard-basic" label="Link" value={link} onChange={(e) => setLink(e.target.value)} />
+
+          { image && <ProgressBar file={image} setFile={setImage} setUrl={setUrl}/>}
 
          <AddButton onClick={addProject} upload={true} style={{marginLeft: 300, marginTop: 50}} />
        </form>
-     :
-       <form>
-         <TextField id="standard-basic" value={projectName} label="Project Name" fullWidth onChange={(e) => setProjectName(e.target.value)} />
-
-         <TextField id="fileToUpload" label="Image" fullWidth type="file" />
-
-         <TextField id="standard-basic" label="Description" value={description} fullWidth  onChange={(e) => setDescription(e.target.value)} />
-
-         <TextField id="standard-basic" label="Time added" value={time} onChange={(e) => setTime(e.target.value)} />
-
-         <TextField id="standard-basic" label="Link" value={link} onChange={(e) => setLink(e.target.value)} />
-
-         <AddButton onClick={updateProject} upload={true} style={{marginLeft: 300, marginTop: 50}} />
-       </form>
-    }
      </div>
   )
 }

@@ -1,11 +1,10 @@
 import {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Card, Link, CardMedia, CardHeader, CardContent, CardActions, IconButton, Typography} from '@material-ui/core'
+// Icons
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import EditIcon from '@material-ui/icons/Edit'
-
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows'
-
 import DeleteIcon from '@material-ui/icons/Delete';
 import Search from './Search'
 
@@ -36,8 +35,6 @@ const Projects = ({projects, onDelete, onEdit}) => {
    setFilterText(newValue.target.value)
  }
 
-
-
   return(
     <div>
       <Grid container spacing={2} justify="center">
@@ -53,11 +50,11 @@ const Projects = ({projects, onDelete, onEdit}) => {
           <Card  className={classes.root}>
             <CardHeader
               title={project.projectName}
-              subheader={project.time}
+              subheader={project.createdAt}
             />
             <CardMedia
               className={classes.media}
-              image={project.image}
+              image={project.url}
             />
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
