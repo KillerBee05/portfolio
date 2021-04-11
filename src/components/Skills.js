@@ -1,9 +1,13 @@
 import React from 'react'
 
-const Skills = () => {
+const Skills = ({ skills, onDelete, onEdit }) => {
   return(
-    <div style={{marginTop:"10em"}}>
-      <p style={{textAlign:"center"}}>My skills</p>
+    <div>
+      {skills.map((skill) => (
+        <li key={skill.id}>
+          {skill.skill}
+        </li>
+      ))}
     </div>
   )
 }

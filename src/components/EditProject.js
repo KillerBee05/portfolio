@@ -8,20 +8,20 @@ const EditProject = ({projectData, onUpdate}) => {
   const [description, setDescription] = useState(projectData.description)
   const [image, setImage] = useState(projectData.image)
   const [link, setLink] = useState(projectData.link)
+  const [createdAt, setCreatedAt] = useState(projectData.createdAt)
   const [error, setError] = useState(null)
   const [url, setUrl] = useState(projectData.url)
 
   const types = ['image/png', 'image/jpeg']
 
   const updateProject = (e) => {
-    debugger;
     e.preventDefault()
     const id = projectData.id
     if(image){
       setUrl(url)
     }
 
-    onUpdate({id, projectName, image, description, url, link})
+    onUpdate({id, projectName, image, description, createdAt, url, link})
   }
 
   //TODO need to render only the progress bar. and not send the image until submit

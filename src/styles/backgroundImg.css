@@ -1,0 +1,15 @@
+.img {
+ opacity: 20%;
+ position: absolute;
+ top: 8%;
+ /* left: 50%; */
+ width: 100%;
+ height: 92%;
+ background-image: url('https://image.freepik.com/free-vector/abstract-colorful-shapes-background_23-2148769634.jpg');
+ /* background-image: url('https://images.squarespace-cdn.com/content/v1/5aa96d162487fd55c7f9891f/1593210644113-TWXTRPHVHGY91G8369WJ/ke17ZwdGBToddI8pDm48kF1ARta7BlTLLKImp_CILJV7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UYRvni1UYTHsaz6jLWjxV2DD_85xBUOzVSB9PgLuJqPzfvSKcCiQDXJ8mOZZ-46MLw/Fullerton+Landscape+Design.jpg?format=1000w'); */
+ /* background-image: url('https://images.squarespace-cdn.com/content/v1/5aa96d162487fd55c7f9891f/1595106955034-D9YLCVUARVEWBQM2OAV5/ke17ZwdGBToddI8pDm48kPTrHXgsMrSIMwe6YW3w1AZ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0k5fwC0WRNFJBIXiBeNI5fKTrY37saURwPBw8fO2esROAxn-RKSrlQamlL27g22X2A/harrison+landscape+design?format=1000w'); */
+
+ background-position: 0 0;
+ background-repeat:no-repeat;
+ background-size: cover;
+}

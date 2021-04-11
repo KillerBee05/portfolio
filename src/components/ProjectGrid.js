@@ -22,6 +22,12 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  backgroundColor: {
+    backgroundColor: '#fff'
+  },
+  button: {
+    color: '#fff'
+  }
 }));
 
 function getModalStyle() {
@@ -43,9 +49,9 @@ const ProjectGrid = () => {
   const [modalStyle] = useState(getModalStyle)
   const [open, setOpen] = useState(false)
 
- const handleOpen = () => {
+  const handleOpen = () => {
    setOpen(true)
- };
+  };
 
   const handleEditOpen = (project) => {
       setOpen(true)
@@ -112,9 +118,6 @@ const ProjectGrid = () => {
     setProjects(newData)
   }
 
-
-
-
   const body = (
      <div style={modalStyle} className={classes.paper}>
        {editFlag === false ? <h2 id="simple-modal-title">Add Project Here!</h2> : <h2 id="simple-modal-title">Update {editProjectData.projectName} Project!</h2>}
@@ -123,11 +126,11 @@ const ProjectGrid = () => {
    );
 
   return(
-    <div style={{marginTop: "5em"}} >
+    <div style={{marginTop: "5em"}} className={classes.backgroundColor}>
       {projects.length > 0 ? <Projects onDelete={deleteProject} projects={projects} onEdit={handleEditOpen}/> : <p style={{textAlign: "center"}}>No projects at the moment</p>}
 
       <Grid container spacing={4} justify="center" style={{marginTop: '2em'}}>
-        <AddButton onClick={handleOpen} upload={false} justify="center"/>
+        <AddButton onClick={handleOpen} addProject={true} />
       </Grid>
 
       <Modal

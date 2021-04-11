@@ -16,7 +16,6 @@ const AddProject = ({onAdd}) => {
   const types = ['image/png', 'image/jpeg']
 
   const addProject = (e) => {
-    debugger;
     e.preventDefault()
     const createdAt = moment().format("MMMM Do YYYY")
 
@@ -48,11 +47,11 @@ const AddProject = ({onAdd}) => {
 
          <TextField id="standard-basic" label="Description" value={description} fullWidth  onChange={(e) => setDescription(e.target.value)} />
 
-         <TextField id="standard-basic" label="Link" value={link} onChange={(e) => setLink(e.target.value)} />
+         <TextField id="standard-basic" label="Link" value={link} fullWidth onChange={(e) => setLink(e.target.value)} />
 
           { image && <ProgressBar file={image} setFile={setImage} setUrl={setUrl}/>}
 
-         <AddButton onClick={addProject} upload={true} style={{marginLeft: 300, marginTop: 50}} />
+         <AddButton onClick={addProject} upload={true} style={{marginLeft: "90%", marginTop: 20}} />
        </form>
      </div>
   )

@@ -2,15 +2,16 @@ import React from 'react'
 import Header from './components/Header'
 import ProjectGrid from './components/ProjectGrid'
 import Introduction from './components/Introduction'
-import Skills from './components/Skills'
+import SkillDrawer from './components/SkillDrawer'
+import SkillList from './components/SkillList'
+import "./styles/backgroundImg.css"
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Header />
       <ProjectGrid />
       <Introduction />
-      <Skills />
     </div>
   );
 }

@@ -13,7 +13,7 @@ const db = admin.firestore();
 
 // Fetch data from firestore
 projectApp.get('/', async (req, res) => {
-  const snapshot = await db.collection('/projects').get();
+  const snapshot = await db.collection('/projects').orderBy('createdAt', 'asc').get();
 
   let projects = [];
   snapshot.forEach((doc) => {

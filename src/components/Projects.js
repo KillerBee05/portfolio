@@ -5,7 +5,7 @@ import {Grid, Card, Link, CardMedia, CardHeader, CardContent, CardActions, IconB
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import EditIcon from '@material-ui/icons/Edit'
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows'
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/Delete'
 import Search from './Search'
 
 const useStyles = makeStyles((theme) => ({
