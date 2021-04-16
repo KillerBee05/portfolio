@@ -12,7 +12,7 @@ import { withStyles, makeStyles } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import SkillDrawer from './SkillDrawer'
-import { purple, blue, pink } from '@material-ui/core/colors';
+import { purple, blue, pink, green, red } from '@material-ui/core/colors';
 import SkillList from './SkillList'
 import Drawer from '@material-ui/core/Drawer';
 
@@ -30,19 +30,19 @@ const useStyles = makeStyles((theme) => ({
   socialPadding: {
     paddingLeft: "1em"
   },
-  skills: {
-
+  header: {
+    color: '#000'
   }
 }));
 
 const PurpleSwitch = withStyles({
   switchBase: {
-    color: pink[300],
+    color: red[300],
     '&$checked': {
-      color: pink[500],
+      color: red[500],
     },
     '&$checked + $track': {
-      backgroundColor: blue[500],
+      backgroundColor: red[500],
     },
   },
   checked: {},
@@ -66,8 +66,8 @@ const Header = () => {
   return(
     <AppBar position="static" className={classes.background}>
       <Toolbar>
-        <Typography variant="h6">
-          <p style={{color:"black"}}>Evan's Portfolio</p>
+        <Typography variant="h5" className={classes.header}>
+            Evan's Portfolio
         </Typography>
 
         <section className={classes.rightToolbar}>

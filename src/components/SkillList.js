@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import Skills from './Skills'
 import AddSkill from './AddSkill'
 import AddGroup from './AddGroup'
 import Divider from '@material-ui/core/Divider'
@@ -71,13 +70,13 @@ const SkillList = () => {
   }, [])
 
   const fetchGroups = async () => {
-    const response = await fetch('http://localhost:5000/portfolio-7ed56/us-central1/groupApi')
+    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi')
     const data = await response.json()
     return data
   }
 
   const addGroup = async (group) => {
-    const response = await fetch('http://localhost:5000/portfolio-7ed56/us-central1/groupApi', {
+    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -92,7 +91,7 @@ const SkillList = () => {
 
   const updateGroup = async (updatedData) => {
     const id = updatedData.id
-    const response = await fetch('http://localhost:5000/portfolio-7ed56/us-central1/groupApi', {
+    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi', {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
@@ -108,7 +107,7 @@ const SkillList = () => {
   }
 
   const deleteGroup = async (id) => {
-    await fetch(`http://localhost:5000/portfolio-7ed56/us-central1/groupApi/${id}`, {
+    await fetch(`https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi/${id}`, {
       method: 'DELETE',
     })
     setGroups(groups.filter(group => group.id !== id))
@@ -132,7 +131,7 @@ const SkillList = () => {
       <Grid container spacing={4} justify="center" style={{marginTop: '0em', marginBottom: '2em'}}>
         <AddButton onClick={handleOpen} addSkill={true} />
       </Grid>
-      <Grid container spacing={12} justify="center">
+      <Grid container spacing={10} justify="center">
         {groups.length > 0 ? <GroupList groups={groups} onDelete={deleteGroup} onEdit={handleEditOpen} onDeleteSkill={updateGroup}/> : <p style={{textAlign: "center"}}>No skills at the moment</p>}
       </Grid>
       <Modal

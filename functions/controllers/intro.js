@@ -14,24 +14,22 @@ const db = admin.firestore();
 
 // Fetch data from firestore
 introApp.get('/', async (req, res) => {
-  const introduction = await db.collection('/introduction').get();
+  const docRef = await db.collection('/introduction').doc("text");
 
-  // let introduction = [];
-  // snapshot.forEach((doc) => {
-  //   let id = doc.id;
-  //   let data = doc.data();
-  //
-  //   skills.push({ id, ...data});
-  // });
-
-  res.status(200).send(introduction);
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+        const introduction = doc.data();
+      res.status(200).send(introduction);
+    } else {
+      res.status(200).send('');
+    }
+  })
 });
 
 // Post data to firestore
 introApp.post('/', async (req, res) => {
   const introduction = req.body;
-
-  await db.collection('introduction').add(introduction)
+  await db.collection('introduction').doc('text').set({introduction})
   // TODO push id with data, so we can delete right after id
   res.status(201).send(introduction);
 });
@@ -51,4 +49,4 @@ introApp.delete('/:id', async (req, res) => {
   res.status(200).send();
 })
 
-exports.introApp = functions.https.onRequest(introApp);
+exports.introApi = functions.https.onRequest(introApp);

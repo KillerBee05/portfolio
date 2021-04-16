@@ -73,14 +73,14 @@ const ProjectGrid = () => {
   }, [])
 
   const fetchProjects = async () => {
-    const response = await fetch('http://localhost:5000/portfolio-7ed56/us-central1/projectApi')
+    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi')
     const data = await response.json()
 
     return data
   }
 
   const addProject = async (project) => {
-    const response = await fetch('http://localhost:5000/portfolio-7ed56/us-central1/projectApi', {
+    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -94,7 +94,7 @@ const ProjectGrid = () => {
   }
 
   const deleteProject = async (id) => {
-    await fetch(`http://localhost:5000/portfolio-7ed56/us-central1/projectApi/${id}`, {
+    await fetch(`https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi/${id}`, {
       method: 'DELETE',
     })
 
@@ -103,7 +103,7 @@ const ProjectGrid = () => {
 
   const updateProject = async (updatedData) => {
     const id = updatedData.id
-    const response = await fetch('http://localhost:5000/portfolio-7ed56/us-central1/projectApi', {
+    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi', {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',

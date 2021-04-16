@@ -42,11 +42,12 @@ const Projects = ({projects, onDelete, onEdit}) => {
         {projects.filter((project) => {
           if(filterText === ''){
             return project
-          } else if(project.projectName.toLowerCase().includes(filterText.toLowerCase())){
+          }
+          else if(project.projectName.toLowerCase().includes(filterText.toLowerCase())){
             return project
           }
         }).map((project) => (
-        <Grid key={project.id} item xs={8} md={4} xl={4}>
+        <Grid key={project.id} item xs={7} md={4} xl={3}>
           <Card  className={classes.root}>
             <CardHeader
               title={project.projectName}
@@ -58,7 +59,7 @@ const Projects = ({projects, onDelete, onEdit}) => {
             />
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
-              {project.description}
+                {project.description}
               </Typography>
             </CardContent>
             <CardActions disableSpacing>

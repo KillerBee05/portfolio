@@ -4,14 +4,28 @@ import ProjectGrid from './components/ProjectGrid'
 import Introduction from './components/Introduction'
 import SkillDrawer from './components/SkillDrawer'
 import SkillList from './components/SkillList'
-import "./styles/backgroundImg.css"
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Nunito',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif'
+    ].join(','),
+  }
+});
 
 function App() {
   return (
     <div>
-      <Header />
-      <ProjectGrid />
-      <Introduction />
+      <MuiThemeProvider theme={theme}>
+        <Header />
+        <ProjectGrid />
+        <Introduction />
+      </MuiThemeProvider>
     </div>
   );
 }

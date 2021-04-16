@@ -14,7 +14,7 @@ const SelectGroup = ({ getGroupId }) => {
   }, [])
 
   const fetchGroupOptions = async () => {
-    const response = await fetch('http://localhost:5000/portfolio-7ed56/us-central1/groupApi/selectGroup')
+    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi/selectGroup')
     const data = await response.json()
 
     return data
