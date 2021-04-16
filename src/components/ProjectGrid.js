@@ -5,6 +5,8 @@ import AddButton from './AddButton'
 import AddProject from './AddProject'
 import EditProject from './EditProject'
 import { makeStyles } from '@material-ui/core/styles';
+import { css } from "@emotion/core"
+import MoonLoader from "react-spinners/MoonLoader"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +43,11 @@ function getModalStyle() {
   };
 }
 
+// Can be a string as well. Need to ensure each key-value pair ends with ;
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 const ProjectGrid = () => {
   const classes = useStyles();
   const [projects, setProjects] = useState([])
@@ -48,6 +55,8 @@ const ProjectGrid = () => {
   const [editProjectData, setEditProjectData] = useState()
   const [modalStyle] = useState(getModalStyle)
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const [color, setColor] = useState("#36D7B7");
 
   const handleOpen = () => {
    setOpen(true)
@@ -68,6 +77,7 @@ const ProjectGrid = () => {
     const getProjects = async () => {
       const projectData = await fetchProjects()
       setProjects(projectData)
+      setLoading(false)
     }
     getProjects()
   }, [])
@@ -126,13 +136,14 @@ const ProjectGrid = () => {
    );
 
   return(
-    <div style={{marginTop: "5em"}} className={classes.backgroundColor}>
-      {projects.length > 0 ? <Projects onDelete={deleteProject} projects={projects} onEdit={handleEditOpen}/> : <p style={{textAlign: "center"}}>No projects at the moment</p>}
-
+    <div style={{marginTop: "3em"}} className={classes.backgroundColor}>
+      { loading === true ?
+        <MoonLoader color={color} loading={loading} css={override} size={40}/> :
+        projects.length > 0 ? <Projects onDelete={deleteProject} projects={projects} onEdit={handleEditOpen}/> : <p style={{textAlign: "center"}}>No projects at the moment</p>
+      }
       <Grid container spacing={4} justify="center" style={{marginTop: '2em'}}>
         <AddButton onClick={handleOpen} addProject={true} />
       </Grid>
-
       <Modal
         open={open}
         onClose={handleClose}
