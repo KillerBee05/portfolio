@@ -1,11 +1,12 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import PublishIcon from '@material-ui/icons/Publish';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import { makeStyles } from '@material-ui/core/styles';
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import PublishIcon from '@material-ui/icons/Publish'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import { makeStyles } from '@material-ui/core/styles'
 
+// Style button colors
 const useStyles = makeStyles((theme) => ({
   projectButton: {
     color: '#f99192'
@@ -16,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
   skillButton: {
     color: '#000'
   }
-
 }));
 
-
+// Reusable button component
 const AddButton = ({onClick, style, upload, addProject, addSkill, type}) => {
+  // Type prop determines whether its a submit or an onClick
   const classes = useStyles();
   return(
     <div>

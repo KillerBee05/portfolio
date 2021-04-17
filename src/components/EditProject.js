@@ -1,8 +1,9 @@
-import {useState} from 'react'
-import {TextField} from '@material-ui/core'
+import { useState } from 'react'
+import { TextField } from '@material-ui/core'
 import AddButton from './AddButton'
 import ProgressBar from './ProgressBar'
 
+// Edit project component
 const EditProject = ({projectData, onUpdate}) => {
   const [projectName, setProjectName] = useState(projectData.projectName)
   const [description, setDescription] = useState(projectData.description)
@@ -12,8 +13,10 @@ const EditProject = ({projectData, onUpdate}) => {
   const [error, setError] = useState(null)
   const [url, setUrl] = useState(projectData.url)
 
+  // Setting acceptable image types
   const types = ['image/png', 'image/jpeg']
 
+  // Sends project data to api call in the ProjectGrid component
   const updateProject = (e) => {
     e.preventDefault()
     const id = projectData.id
@@ -24,7 +27,7 @@ const EditProject = ({projectData, onUpdate}) => {
     onUpdate({id, projectName, image, description, createdAt, url, link})
   }
 
-  //TODO need to render only the progress bar. and not send the image until submit
+  // Checks & verifies images being uploaded
   const imageHandler = (e) => {
     const selected = e.target.files[0]
     if(selected && types.includes(selected.type)){
@@ -35,7 +38,7 @@ const EditProject = ({projectData, onUpdate}) => {
       setError('Please select an image file (png or jpeg)')
     }
   }
-
+  // TODO Make fields required
   return(
     <form>
       <TextField id="standard-basic" defaultValue={projectData.projectName} label="Project Name" fullWidth onChange={(e) => setProjectName(e.target.value)} />

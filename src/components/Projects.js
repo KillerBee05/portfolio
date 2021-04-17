@@ -1,17 +1,16 @@
-import {useState} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import {Grid, Card, Link, CardMedia, CardHeader, CardContent, CardActions, IconButton, Typography} from '@material-ui/core'
+import { useState } from 'react'
+// Material UI
+import { Grid, Card, Link, CardMedia, CardHeader, CardContent, CardActions, IconButton, Typography, makeStyles } from '@material-ui/core'
+// Imported Components
+import Search from './Search'
 // Icons
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import EditIcon from '@material-ui/icons/Edit'
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows'
 import DeleteIcon from '@material-ui/icons/Delete'
-import Search from './Search'
 
+// Project styles
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // maxWidth: 345,
-  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -26,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Projects = ({projects, onDelete, onEdit}) => {
+// Project component
+const Projects = ({ projects, onDelete, onEdit }) => {
   const classes = useStyles();
   const [filterText, setFilterText] = useState('')
-
-
+  // Handle Search Filter
  const handleChange = (newValue) => {
    setFilterText(newValue.target.value)
  }

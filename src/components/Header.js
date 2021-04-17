@@ -1,21 +1,15 @@
 import { useState, useEffect } from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
+import { AppBar, Toolbar, Link, Switch, FormControlLabel, Drawer, makeStyles, withStyles } from '@material-ui/core'
+import SkillDrawer from './SkillDrawer'
+import SkillList from './SkillList'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
 import LinkedInIcon from '@material-ui/icons/LinkedIn'
 import GitHubIcon from '@material-ui/icons/GitHub'
-import Link from '@material-ui/core/Link'
-import"../styles/header.css"
-import { withStyles, makeStyles } from '@material-ui/core';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import SkillDrawer from './SkillDrawer'
-import { purple, blue, pink, green, red } from '@material-ui/core/colors';
-import SkillList from './SkillList'
-import Drawer from '@material-ui/core/Drawer';
+import { purple, blue, pink, green, red } from '@material-ui/core/colors'
 
+// Header Styles
 const useStyles = makeStyles((theme) => ({
   background: {
     backgroundColor: '#f99192'
@@ -30,11 +24,12 @@ const useStyles = makeStyles((theme) => ({
   socialPadding: {
     paddingLeft: "1em"
   },
-  header: {
+  blackText: {
     color: '#000'
   }
 }));
 
+// Toggle switch style
 const PurpleSwitch = withStyles({
   switchBase: {
     color: red[300],
@@ -49,11 +44,13 @@ const PurpleSwitch = withStyles({
   track: {},
 })(Switch);
 
+// Header component
 const Header = () => {
   const [showSkills, setShowSkills] = useState(false)
   const [open, setOpen] = useState(false)
   const classes = useStyles();
-
+  
+  // Show skill drawer
   const handleChange = () => {
     setShowSkills(!showSkills)
     if(showSkills){
@@ -66,7 +63,7 @@ const Header = () => {
   return(
     <AppBar position="static" className={classes.background}>
       <Toolbar>
-        <Typography variant="h5" className={classes.header}>
+        <Typography variant="h5" className={classes.blackText}>
             Evan's Portfolio
         </Typography>
 
@@ -76,7 +73,7 @@ const Header = () => {
               control={<PurpleSwitch checked={showSkills} onChange={handleChange} name="showSkills" />}
               label="Skills"
               labelPlacement="bottom"
-              style={{color:"black"}}
+              className={classes.blackText}
             />
           <Link className={classes.icons} href="https://www.linkedin.com/in/evan-herring-7019a975/" target="_blank">
             <LinkedInIcon />

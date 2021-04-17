@@ -1,30 +1,24 @@
 import { useState, useEffect } from 'react'
+// Material UI
+import { Grid, Modal, Divider, makeStyles } from '@material-ui/core'
+// Imported Components
 import AddSkill from './AddSkill'
 import AddGroup from './AddGroup'
-import Divider from '@material-ui/core/Divider'
-import GroupList from './GroupList'
+import Groups from './Groups'
 import EditGroup from './EditGroup'
-import { Grid, Modal } from '@material-ui/core'
 import SelectGroup from './SelectGroup'
-import { makeStyles } from '@material-ui/core/styles';
 import AddButton from './AddButton'
 
+// Skill List styles
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
   paper: {
     position: 'absolute',
-    width: 400,
+    width: "50%",
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-  },
+  }
 }));
 
 function getModalStyle() {
@@ -37,6 +31,7 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
+// Skill List component
 const SkillList = () => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle)
@@ -46,21 +41,25 @@ const SkillList = () => {
   const [editFlag, setEditFlag] = useState(false)
   const [editGroupData, setEditGroupData] = useState()
 
+  // Open modal
   const handleOpen = () => {
    setOpen(true)
   };
 
+  // Open edit modal
   const handleEditOpen = (project) => {
       setOpen(true)
       setEditFlag(true)
       setEditGroupData(project)
   };
 
+  // Close modal
   const handleClose = () => {
      setOpen(false)
      setEditFlag(false)
   };
 
+  // Get group data when component renders
   useEffect(() => {
     const getGroups = async () => {
       const groupData = await fetchGroups()
@@ -69,12 +68,14 @@ const SkillList = () => {
     getGroups()
   }, [])
 
+  // Fetch group data
   const fetchGroups = async () => {
     const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi')
     const data = await response.json()
     return data
   }
 
+  // Add group
   const addGroup = async (group) => {
     const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi', {
       method: 'POST',
@@ -89,6 +90,7 @@ const SkillList = () => {
     setGroups([...groups, data])
   }
 
+  // Update group
   const updateGroup = async (updatedData) => {
     const id = updatedData.id
     const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi', {
@@ -106,6 +108,7 @@ const SkillList = () => {
     setGroups(newData)
   }
 
+  // Delete group
   const deleteGroup = async (id) => {
     await fetch(`https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi/${id}`, {
       method: 'DELETE',
@@ -113,11 +116,13 @@ const SkillList = () => {
     setGroups(groups.filter(group => group.id !== id))
   }
 
+  // Get selected group id from modal
   const fetchSelectedGroupId = (selectedGroup) => {
     let groupId = selectedGroup
     setGroupSelected(groupId)
   }
 
+  // Set modal body
   const body = (
      <div style={modalStyle} className={classes.paper}>
        {editFlag === false ? <AddGroup onAdd={addGroup} /> : <EditGroup onEdit={updateGroup} groupData={editGroupData}/>}
@@ -132,7 +137,7 @@ const SkillList = () => {
         <AddButton onClick={handleOpen} addSkill={true} />
       </Grid>
       <Grid container spacing={10} justify="center">
-        {groups.length > 0 ? <GroupList groups={groups} onDelete={deleteGroup} onEdit={handleEditOpen} onDeleteSkill={updateGroup}/> : <p style={{textAlign: "center"}}>No skills at the moment</p>}
+        {groups.length > 0 ? <Groups groups={groups} onDelete={deleteGroup} onEdit={handleEditOpen} onDeleteSkill={updateGroup}/> : <p style={{textAlign: "center"}}>No skills at the moment</p>}
       </Grid>
       <Modal
         open={open}

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import Paper from '@material-ui/core/Paper'
-import {Grid, IconButton, Divider} from '@material-ui/core'
+import {Grid, IconButton, Divider, Paper} from '@material-ui/core'
 import { makeStyles } from "@material-ui/core/styles"
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ClearIcon from '@material-ui/icons/Clear'
 
+// Group Styles
 const useStyles = makeStyles({
     paper: {
       minHeight: "35vh"
@@ -20,9 +20,10 @@ const useStyles = makeStyles({
 
 });
 
-const GroupList = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
+// Skill group component
+const Groups = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
   const classes = useStyles();
-
+  // Delete skill
   const deleteSkill = (index, skillGroup) => {
     const id = skillGroup.id
     const group = skillGroup.group
@@ -63,4 +64,4 @@ const GroupList = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
   )
 }
 
-export default GroupList
+export default Groups
