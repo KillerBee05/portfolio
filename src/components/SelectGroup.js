@@ -33,7 +33,7 @@ const SelectGroup = ({ getGroupId }) => {
   // TODO set a default menu item named select one
   return(
     <div>
-      <Grid container spacing={4} justify="center" style={{ marginTop:35}}>
+      <Grid container spacing={4} justify="center" style={{ marginTop:35 }}>
         <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"

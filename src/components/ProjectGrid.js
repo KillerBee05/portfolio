@@ -52,6 +52,7 @@ const override = css`
   margin: 0 auto;
 `;
 
+// Project Grid component
 const ProjectGrid = () => {
   const classes = useStyles();
   const [projects, setProjects] = useState([])
@@ -107,10 +108,14 @@ const ProjectGrid = () => {
       },
       body: JSON.stringify(project)
     })
-
-    const data = await response.json()
+    // Close modal on add
+    setOpen(false)
+    // const data = await response.json()
     // Merge new project data
-    setProjects([...projects, data])
+    // setProjects([...projects, data])
+    // Get ID for new project
+    const projectData = await fetchProjects()
+    setProjects(projectData)
   }
 
   // Delete project data

@@ -49,7 +49,7 @@ const Header = () => {
   const [showSkills, setShowSkills] = useState(false)
   const [open, setOpen] = useState(false)
   const classes = useStyles();
-  
+
   // Show skill drawer
   const handleChange = () => {
     setShowSkills(!showSkills)
@@ -64,7 +64,7 @@ const Header = () => {
     <AppBar position="static" className={classes.background}>
       <Toolbar>
         <Typography variant="h5" className={classes.blackText}>
-            Evan's Portfolio
+            Portfolio
         </Typography>
 
         <section className={classes.rightToolbar}>

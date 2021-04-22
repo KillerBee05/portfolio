@@ -34,19 +34,5 @@ introApp.post('/', async (req, res) => {
   res.status(201).send(introduction);
 });
 
-// Update Project data
-introApp.put('/', async (req, res) => {
-  const introduction = req.body;
-  await db.collection('introduction').doc(introduction.id).update(introduction);
-
-  res.status(200).send(introduction);
-});
-
-// Delete selected data from firestore
-introApp.delete('/:id', async (req, res) => {
-  await db.collection('introduction').doc(req.params.id).delete();
-
-  res.status(200).send();
-})
 
 exports.introApi = functions.https.onRequest(introApp);

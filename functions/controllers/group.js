@@ -14,7 +14,7 @@ const db = admin.firestore();
 
 // Fetch data from firestore
 groupApp.get('/', async (req, res) => {
-  const snapshot = await db.collection('/groups').get();
+  const snapshot = await db.collection('/groups').orderBy('createdAt', 'asc').get();
 
   let groups = [];
   snapshot.forEach((doc) => {

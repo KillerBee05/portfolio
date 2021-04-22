@@ -35,7 +35,7 @@ const EditGroup = ({ onEdit, groupData }) => {
         <Grid container spacing={4} justify="center" className={classes.gridSpace}>
           <TextField id="standard-basic" label="Edit Group" defaultValue={groupData.group} className={classes.textField} required onChange={(e) => setGroup(e.target.value)} />
 
-          <AddButton type={true} addSkill={true} />
+          <AddButton type={true} addSkill={true} style={{marginLeft: "25%"}}/>
         </Grid>
       </form>
     </div>

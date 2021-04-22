@@ -84,10 +84,12 @@ const SkillList = () => {
       },
       body: JSON.stringify(group)
     })
-
-    const data = await response.json()
-
-    setGroups([...groups, data])
+    // Close modal on add
+    setOpen(false)
+    // const data = await response.json()
+    // setGroups([...groups, data])
+    const groupData = await fetchGroups()
+    setGroups(groupData)
   }
 
   // Update group

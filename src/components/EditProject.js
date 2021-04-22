@@ -38,7 +38,7 @@ const EditProject = ({projectData, onUpdate}) => {
       setError('Please select an image file (png or jpeg)')
     }
   }
-  // TODO Make fields required
+  // TODO Make fields required and fix save button and link width
   return(
     <form>
       <TextField id="standard-basic" defaultValue={projectData.projectName} label="Project Name" fullWidth onChange={(e) => setProjectName(e.target.value)} />
@@ -51,11 +51,11 @@ const EditProject = ({projectData, onUpdate}) => {
 
       <TextField id="standard-basic" label="Description" defaultValue={projectData.description} fullWidth  onChange={(e) => setDescription(e.target.value)} />
 
-      <TextField id="standard-basic" label="Link" defaultValue={projectData.link} onChange={(e) => setLink(e.target.value)} />
+      <TextField id="standard-basic" label="Link" defaultValue={projectData.link} fullWidth onChange={(e) => setLink(e.target.value)} />
 
       { image && <ProgressBar file={image} setFile={setImage} setUrl={setUrl}/>}
 
-      <AddButton onClick={updateProject} upload={true} style={{marginLeft: 300, marginTop: 50}} />
+      <AddButton onClick={updateProject} upload={true} style={{marginLeft: "90%", marginTop: 20}} />
     </form>
   )
 }

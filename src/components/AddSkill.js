@@ -57,7 +57,7 @@ const AddSkill = ({ onAdd, groupId, groups }) => {
         <Grid container spacing={4} justify="center" className={classes.gridSpace}>
            <TextField id="standard-basic" label="Add Skill" className={classes.textField} value={skills} required onChange={(e) => setSkills(e.target.value)} />
 
-           <AddButton type={true} addSkill={true} style={{marginTop:35}}/>
+           <AddButton type={true} addSkill={true} style={{marginLeft: "25%", marginTop: 30}}/>
         </Grid>
       </form>
     </div>

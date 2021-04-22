@@ -25,17 +25,17 @@ const AddButton = ({onClick, style, upload, addProject, addSkill, type}) => {
   const classes = useStyles();
   return(
     <div>
-    {type === true ?
-      <Button className={classes.saveSkillButton} type="submit" style={style}>
-        {addSkill &&  <AddBoxIcon fontSize="large"/>}
-      </Button>
-    :
-      <Button color="secondary" onClick={onClick} style={style}>
-        {upload && <AddBoxIcon className={classes.saveSkillButton} fontSize="large"/> }
-        {addProject && <AddCircleIcon className={classes.projectButton} fontSize="large"/>}
-        {addSkill &&  <AddBoxIcon className={classes.skillButton} fontSize="large"/>}
-      </Button>
-    }
+      {type === true ?
+        <Button className={classes.saveSkillButton} type="submit" style={style}>
+          {addSkill &&  <AddBoxIcon fontSize="large"/>}
+        </Button>
+      :
+        <Button color="secondary" onClick={onClick} style={style}>
+          {upload && <AddBoxIcon className={classes.saveSkillButton} fontSize="large"/> }
+          {addProject && <AddCircleIcon className={classes.projectButton} fontSize="large"/>}
+          {addSkill &&  <AddBoxIcon className={classes.skillButton} fontSize="large"/>}
+        </Button>
+      }
     </div>
   )
 }

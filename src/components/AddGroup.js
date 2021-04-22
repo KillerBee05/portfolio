@@ -25,7 +25,7 @@ const AddGroup = ({ onAdd }) => {
     // Order by created time
     const createdAt = moment().format("MMMM Do YYYY")
     e.preventDefault()
-    onAdd({ group, skills, createdAt})
+    onAdd({ group, skills, createdAt })
     setGroup('')
   }
   // TODO give proder around to seperate fields
@@ -35,7 +35,7 @@ const AddGroup = ({ onAdd }) => {
         <Grid container spacing={4} justify="center" className={classes.gridSpace}>
           <TextField id="standard-basic" label="Add Group" value={group} className={classes.textField} required onChange={(e) => setGroup(e.target.value)} />
 
-          <AddButton type={true} addSkill={true} />
+          <AddButton type={true} addSkill={true} style={{marginLeft: "25%"}}/>
         </Grid>
       </form>
     </div>

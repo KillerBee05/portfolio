@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  mainDiv: {
+    padding: "1%"
+  }
 }));
 
 // Project component
@@ -35,7 +38,7 @@ const Projects = ({ projects, onDelete, onEdit }) => {
  }
 
   return(
-    <div>
+    <div className={classes.mainDiv}>
       <Grid container spacing={2} justify="center">
         <Search filterText={filterText} handleChange={handleChange} />
         {projects.filter((project) => {
