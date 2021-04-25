@@ -4,6 +4,7 @@ import ProjectGrid from './components/ProjectGrid'
 import Introduction from './components/Introduction'
 import SkillDrawer from './components/SkillDrawer'
 import SkillList from './components/SkillList'
+import InfoCardGrid from './components/InfoCardGrid'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
@@ -25,6 +26,7 @@ function App() {
         <Header />
         <ProjectGrid />
         <Introduction />
+        <InfoCardGrid />
       </MuiThemeProvider>
     </div>
   );

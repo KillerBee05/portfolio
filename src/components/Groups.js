@@ -33,9 +33,9 @@ const Groups = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
   }
 
   return(
-    <Grid container spacing={3} item xs={10} md={8} xl={8}justify="center">
+    <Grid container spacing={3} item xs={10} md={12} xl={12} justify="center">
       {groups.map((group, index) => (
-        <Grid key={index} item xs={8} md={5} xl={4}>
+        <Grid key={index} item xs={8} md={3} xl={2}>
           <Paper  className={classes.paper} elevation={3}>
             <Grid container spacing={5} justify="center">
               <h2 style={{marginLeft:"2%"}}> {group.group} </h2>

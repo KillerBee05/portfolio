@@ -66,7 +66,6 @@ const Introduction = () => {
         onEditorStateChange={onEditorStateChange}
         toolbarHidden={false}
         readOnly={false}
-        editorStyle={{paddingBottom: "20em"}}
       />
     </div>
   )

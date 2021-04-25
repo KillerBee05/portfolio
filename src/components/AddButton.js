@@ -9,18 +9,21 @@ import { makeStyles } from '@material-ui/core/styles'
 // Style button colors
 const useStyles = makeStyles((theme) => ({
   projectButton: {
-    color: '#f99192'
+    color: '#f97171'
   },
   saveSkillButton: {
     color: '#f97171'
   },
   skillButton: {
     color: '#000'
+  },
+  infoCardButton: {
+    color: '#8ad6cc'
   }
 }));
 
 // Reusable button component
-const AddButton = ({onClick, style, upload, addProject, addSkill, type}) => {
+const AddButton = ({onClick, style, upload, addProject, addSkill, addInfoCard, type}) => {
   // Type prop determines whether its a submit or an onClick
   const classes = useStyles();
   return(
@@ -31,9 +34,10 @@ const AddButton = ({onClick, style, upload, addProject, addSkill, type}) => {
         </Button>
       :
         <Button color="secondary" onClick={onClick} style={style}>
-          {upload && <AddBoxIcon className={classes.saveSkillButton} fontSize="large"/> }
-          {addProject && <AddCircleIcon className={classes.projectButton} fontSize="large"/>}
-          {addSkill &&  <AddBoxIcon className={classes.skillButton} fontSize="large"/>}
+          { upload && <AddBoxIcon className={classes.saveSkillButton} fontSize="large"/> }
+          { addProject && <AddCircleIcon className={classes.projectButton} fontSize="large"/> }
+          { addSkill && <AddBoxIcon className={classes.skillButton} fontSize="large"/> }
+          { addInfoCard &&  <AddCircleIcon className={classes.infoCardButton} fontSize="large"/> }
         </Button>
       }
     </div>

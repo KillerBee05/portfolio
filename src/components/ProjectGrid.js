@@ -159,13 +159,14 @@ const ProjectGrid = () => {
 
   return(
     <div className={classes.mainDiv}>
+      <Grid container spacing={8} justify="center" style={{marginBottom: '1em'}}>
+        <AddButton onClick={handleOpen} addProject={true} />
+      </Grid>
       { loading === true ?
         <MoonLoader color={color} loading={loading} css={override} size={40}/> :
         projects.length > 0 ? <Projects onDelete={deleteProject} projects={projects} onEdit={handleEditOpen}/> : <p className={classes.noProjects}>No projects at the moment</p>
       }
-      <Grid container spacing={4} justify="center" style={{marginTop: '2em'}}>
-        <AddButton onClick={handleOpen} addProject={true} />
-      </Grid>
+
       <Modal
         open={open}
         onClose={handleClose}

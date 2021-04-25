@@ -12,7 +12,7 @@ import { purple, blue, pink, green, red } from '@material-ui/core/colors'
 // Header Styles
 const useStyles = makeStyles((theme) => ({
   background: {
-    backgroundColor: '#f99192'
+    backgroundColor: '#f97171'
   },
   icons: {
     color: '#000'
@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
 // Toggle switch style
 const PurpleSwitch = withStyles({
   switchBase: {
-    color: red[300],
+    color: purple[100],
     '&$checked': {
-      color: red[500],
+      color: purple[200],
     },
     '&$checked + $track': {
-      backgroundColor: red[500],
+      backgroundColor: blue[900],
     },
   },
   checked: {},
