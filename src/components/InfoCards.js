@@ -16,7 +16,7 @@ const useStyles = makeStyles({
       marginLeft: "44%"
     },
     mainDiv: {
-      padding: "1%"
+      padding: "5%"
     },
     description: {
       marginTop: 25,
@@ -35,7 +35,7 @@ const InfoCards = ({ infoCards, onDelete, onEdit }) => {
     <div className={classes.mainDiv}>
       <Grid container spacing={4} justify="center">
         {infoCards.map((infoCard, index) => (
-          <Grid key={index} item xs={8} md={4} xl={3}>
+          <Grid key={index} item xs={12} md={4} xl={3}>
             <Paper  className={ classes.paper } elevation={24}>
               <Grid container spacing={5} justify="center">
                 <Typography variant="h5" color="textSecondary" component="h2" align="center" className={classes.title}>

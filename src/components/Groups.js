@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import {Grid, IconButton, Divider, Paper} from '@material-ui/core'
+import {Grid, IconButton, Divider, Paper, Typography} from '@material-ui/core'
 import { makeStyles } from "@material-ui/core/styles"
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -16,6 +16,10 @@ const useStyles = makeStyles({
     li: {
       listStyleType: "none",
       marginTop: 5
+    },
+    title: {
+      color: "#000",
+      marginTop: 10
     }
 
 });
@@ -33,12 +37,14 @@ const Groups = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
   }
 
   return(
-    <Grid container spacing={3} item xs={10} md={12} xl={12} justify="center">
+    <Grid container spacing={1} item xs={10} md={12} xl={12} justify="center">
       {groups.map((group, index) => (
-        <Grid key={index} item xs={8} md={3} xl={2}>
+        <Grid key={index} item xs={12} md={3} xl={2}>
           <Paper  className={classes.paper} elevation={3}>
-            <Grid container spacing={5} justify="center">
-              <h2 style={{marginLeft:"2%"}}> {group.group} </h2>
+            <Grid container justify="center">
+              <Typography variant="h5" color="textSecondary" component="h2" align="center" className={classes.title}>
+                <b>{group.group}</b>
+              </Typography>
               <IconButton aria-label="edit" onClick={() => onEdit(group)}>
                 <EditIcon />
               </IconButton>
@@ -47,10 +53,12 @@ const Groups = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
             {group.skills.map((skill, index) => (
               <Grid container justify="center">
               <li key={index} className={classes.li}>
-                {skill}
+                <Typography  component="p">
+                  {skill}
                 <IconButton aria-label="delete" style={{dislplay: "flex"}} onClick={() => deleteSkill(index, group)}>
                   <DeleteIcon style={{alignContent: "flex-end"}}/>
                 </IconButton>
+              </Typography>
               </li>
               </Grid>
             ))}

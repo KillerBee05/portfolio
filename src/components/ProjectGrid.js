@@ -14,7 +14,7 @@ import { css } from "@emotion/core"
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: "50%",
+    width: "75%",
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -159,7 +159,7 @@ const ProjectGrid = () => {
 
   return(
     <div className={classes.mainDiv}>
-      <Grid container spacing={8} justify="center" style={{marginBottom: '1em'}}>
+      <Grid container justify="center" style={{marginBottom: '1em'}}>
         <AddButton onClick={handleOpen} addProject={true} />
       </Grid>
       { loading === true ?

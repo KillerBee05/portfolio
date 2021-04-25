@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   mainDiv: {
-    padding: "1%"
+    padding: "5%"
   }
 }));
 
@@ -39,7 +39,7 @@ const Projects = ({ projects, onDelete, onEdit }) => {
 
   return(
     <div className={classes.mainDiv}>
-      <Grid container spacing={2} justify="center">
+      <Grid container spacing={3} justify="center">
         <Search filterText={filterText} handleChange={handleChange} />
         {projects.filter((project) => {
           if(filterText === ''){
@@ -49,7 +49,7 @@ const Projects = ({ projects, onDelete, onEdit }) => {
             return project
           }
         }).map((project) => (
-        <Grid key={project.id} item xs={7} md={4} xl={3}>
+        <Grid key={project.id} item xs={12} md={4} xl={3}>
           <Card  className={classes.root}>
             <CardHeader
               title={project.projectName}

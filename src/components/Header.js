@@ -66,7 +66,6 @@ const Header = () => {
         <Typography variant="h5" className={classes.blackText}>
             Portfolio
         </Typography>
-
         <section className={classes.rightToolbar}>
             <FormControlLabel
               value="top"

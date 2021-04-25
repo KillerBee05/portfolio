@@ -11,7 +11,7 @@ import AddButton from './AddButton'
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: "50%",
+    width: "75%",
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -145,7 +145,7 @@ const InfoCardGrid = () => {
 
   return(
     <div className={classes.mainDiv}>
-      <Grid container spacing={8} justify="center" style={{marginBottom:'2em'}}>
+      <Grid container justify="center" style={{marginBottom:'2em'}}>
         <AddButton onClick={handleOpen} addInfoCard={true} />
       </Grid>
       {

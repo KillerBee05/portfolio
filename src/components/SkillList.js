@@ -13,7 +13,7 @@ import AddButton from './AddButton'
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: "50%",
+    width: "75%",
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -135,10 +135,10 @@ const SkillList = () => {
 
   return(
     <div >
-      <Grid container spacing={4} justify="center" style={{marginTop: '0em', marginBottom: '2em'}}>
+      <Grid container justify="center" style={{marginTop: '0em', marginBottom: '2em'}}>
         <AddButton onClick={handleOpen} addSkill={true} />
       </Grid>
-      <Grid container spacing={10} justify="center">
+      <Grid container justify="center">
         {groups.length > 0 ? <Groups groups={groups} onDelete={deleteGroup} onEdit={handleEditOpen} onDeleteSkill={updateGroup}/> : <p style={{textAlign: "center"}}>No skills at the moment</p>}
       </Grid>
       <Modal
