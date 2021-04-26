@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "1em"
   },
   socialPadding: {
-    paddingLeft: "1em"
+    paddingLeft: "1em",
+    '@media (max-width: 320px)' : {
+      paddingLeft: '15px'
+    }
   },
   blackText: {
     color: '#000'
@@ -52,6 +55,7 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
+    // height: "100%",
   };
 }
 
@@ -78,6 +82,7 @@ const Header = () => {
   const [open, setOpen] = useState(false)
   const [modalStyle] = useState(getModalStyle)
   const [pdf, setPdf] = useState(null)
+
 
   // Open add pdf Modal
   const handleOpen = () => {
@@ -132,15 +137,14 @@ const Header = () => {
   }
 
   const viewPDF = () => {
-    debugger;
-    alert(pdf.pdf.url)
+    setOpen(true)
   }
 
   // Setting up Modal body
   const body = (
      <div style={modalStyle} className={classes.paper}>
        <h2>Upload PDF</h2>
-       <UploadPDF uploadPDF={addPDF}/>
+       <UploadPDF uploadPDF={addPDF} />
      </div>
   );
 
@@ -164,9 +168,11 @@ const Header = () => {
           <Link className={classes.icons}  href="https://github.com/KillerBee05" target="_blank">
             <GitHubIcon className={classes.socialPadding}/>
           </Link>
-          <Link className={classes.icons}>
-          { pdf !== null && <DescriptionIcon className={classes.socialPadding} onClick={viewPDF}/> }
-          </Link>
+          { pdf !== null &&
+            <Link className={classes.icons} href={pdf.pdf.url} target="_blank">
+              <DescriptionIcon className={classes.socialPadding} />
+            </Link>
+          }
         </section>
         <AddButton addPdf={true} onClick={handleOpen}/>
       </Toolbar>
