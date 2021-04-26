@@ -19,7 +19,7 @@ const EditInfoCard = ({infoCardData, onUpdate}) => {
   // TODO fix save button and submit form
   return(
     <form>
-      <TextField id="standard-basic" defaultValue={infoCardData.infoCardTitle} label="InfoCard Name" fullWidth onChange={(e) => setInfoCardTitle(e.target.value)} />
+      <TextField id="standard-basic" defaultValue={infoCardData.infoCardTitle} label="InfoCard Title" fullWidth onChange={(e) => setInfoCardTitle(e.target.value)} />
 
       <TextField id="standard-basic" label="Description" defaultValue={infoCardData.description} multiline rows={2} rowsMax={4} fullWidth  onChange={(e) => setDescription(e.target.value)} />
 

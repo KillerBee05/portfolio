@@ -19,11 +19,14 @@ const useStyles = makeStyles((theme) => ({
   },
   infoCardButton: {
     color: '#8ad6cc'
+  },
+  pdfButton: {
+    color: '#000'
   }
 }));
 
 // Reusable button component
-const AddButton = ({onClick, style, upload, addProject, addSkill, addInfoCard, type}) => {
+const AddButton = ({onClick, style, upload, addProject, addSkill, addInfoCard, addPdf, type}) => {
   // Type prop determines whether its a submit or an onClick
   const classes = useStyles();
   return(
@@ -38,6 +41,7 @@ const AddButton = ({onClick, style, upload, addProject, addSkill, addInfoCard, t
           { addProject && <AddCircleIcon className={classes.projectButton} fontSize="large"/> }
           { addSkill && <AddBoxIcon className={classes.skillButton} fontSize="large"/> }
           { addInfoCard &&  <AddCircleIcon className={classes.infoCardButton} fontSize="large"/> }
+          { addPdf && <AddCircleIcon className={classes.pdfButton} fontSize="small"/> }
         </Button>
       }
     </div>

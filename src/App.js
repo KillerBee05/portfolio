@@ -24,9 +24,9 @@ function App() {
     <div>
       <MuiThemeProvider theme={theme}>
         <Header />
-        <ProjectGrid />
-        <Introduction />
         <InfoCardGrid />
+        <Introduction />
+        <ProjectGrid />
       </MuiThemeProvider>
     </div>
   );

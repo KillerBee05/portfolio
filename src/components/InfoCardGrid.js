@@ -6,6 +6,9 @@ import InfoCards from './InfoCards'
 import AddInfoCard from './AddInfoCard'
 import EditInfoCard from './EditInfoCard'
 import AddButton from './AddButton'
+// Loading Spinner
+import PuffLoader from "react-spinners/PuffLoader"
+import { css } from "@emotion/core"
 
 // InfoCard Grid Stlyes Modal, Grid, makeStyles
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +44,15 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
+
+// Can be a string as well. Need to ensure each key-value pair ends with ;
+// Laoding spinner css overrides
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
+
+// Info Card Component
 const InfoCardGrid = () => {
   const classes = useStyles();
   const [infoCards, setInfoCards] = useState([])
@@ -49,6 +61,8 @@ const InfoCardGrid = () => {
   const [editInfoCardData, setEditInfoCardData] = useState()
   const [modalStyle] = useState(getModalStyle)
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const [color, setColor] = useState("#f97171");
 
   // Open add infoCard Modal
   const handleOpen = () => {
@@ -73,6 +87,7 @@ const InfoCardGrid = () => {
     const getInfoCards = async () => {
       const infoCardData = await fetchInfoCards()
       setInfoCards(infoCardData)
+      setLoading(false)
     }
     getInfoCards()
   }, [])
@@ -145,10 +160,11 @@ const InfoCardGrid = () => {
 
   return(
     <div className={classes.mainDiv}>
-      <Grid container justify="center" style={{marginBottom:'2em'}}>
+      <Grid container justify="center" >
         <AddButton onClick={handleOpen} addInfoCard={true} />
       </Grid>
-      {
+      { loading === true ?
+        <PuffLoader color={color} loading={loading} css={override} size={35}/> :
         infoCards.length > 0 ? <InfoCards onDelete={deleteInfoCard} infoCards={infoCards} onEdit={handleEditOpen}/> : <p className={classes.noInfoCards}>No info about me at the moment</p>
       }
 

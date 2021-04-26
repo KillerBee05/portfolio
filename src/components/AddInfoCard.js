@@ -20,7 +20,7 @@ const AddInfoCard = ({ onAdd }) => {
   return(
      <div>
        <form>
-         <TextField id="standard-basic" value={infoCardTitle} label="InfoCard Name" fullWidth onChange={(e) => setInfoCardTitle(e.target.value)} />
+         <TextField id="standard-basic" value={infoCardTitle} label="InfoCard Title" fullWidth onChange={(e) => setInfoCardTitle(e.target.value)} />
 
          <TextField id="standard-basic" label="Description" value={description} multiline rows={2} rowsMax={4} fullWidth  onChange={(e) => setDescription(e.target.value)} />
 

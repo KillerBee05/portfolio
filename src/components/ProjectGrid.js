@@ -7,7 +7,7 @@ import AddProject from './AddProject'
 import EditProject from './EditProject'
 import AddButton from './AddButton'
 // Loading Spinner
-import MoonLoader from "react-spinners/MoonLoader"
+import PuffLoader from "react-spinners/PuffLoader"
 import { css } from "@emotion/core"
 
 // Project Grid Stlyes
@@ -61,7 +61,7 @@ const ProjectGrid = () => {
   const [modalStyle] = useState(getModalStyle)
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(true);
-  const [color, setColor] = useState("#36D7B7");
+  const [color, setColor] = useState("#f97171");
 
   // Open add project Modal
   const handleOpen = () => {
@@ -159,11 +159,11 @@ const ProjectGrid = () => {
 
   return(
     <div className={classes.mainDiv}>
-      <Grid container justify="center" style={{marginBottom: '1em'}}>
+      <Grid container justify="center">
         <AddButton onClick={handleOpen} addProject={true} />
       </Grid>
       { loading === true ?
-        <MoonLoader color={color} loading={loading} css={override} size={40}/> :
+        <PuffLoader color={color} loading={loading} css={override} size={35}/> :
         projects.length > 0 ? <Projects onDelete={deleteProject} projects={projects} onEdit={handleEditOpen}/> : <p className={classes.noProjects}>No projects at the moment</p>
       }
 
