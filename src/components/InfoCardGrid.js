@@ -7,7 +7,7 @@ import AddInfoCard from './AddInfoCard'
 import EditInfoCard from './EditInfoCard'
 import AddButton from './AddButton'
 // Loading Spinner
-import PuffLoader from "react-spinners/PuffLoader"
+import MoonLoader from "react-spinners/MoonLoader"
 import { css } from "@emotion/core"
 
 // InfoCard Grid Stlyes Modal, Grid, makeStyles
@@ -160,14 +160,14 @@ const InfoCardGrid = () => {
 
   return(
     <div className={classes.mainDiv}>
-      <Grid container justify="center" >
-        <AddButton onClick={handleOpen} addInfoCard={true} />
-      </Grid>
-      { loading === true ?
-        <PuffLoader color={color} loading={loading} css={override} size={35}/> :
-        infoCards.length > 0 ? <InfoCards onDelete={deleteInfoCard} infoCards={infoCards} onEdit={handleEditOpen}/> : <p className={classes.noInfoCards}>No info about me at the moment</p>
-      }
+      <div className={classes.button}>
+        <AddButton onClick={handleOpen} addInfoCard={true} style={{display: 'block', margin: '0 auto'}} />
 
+        { loading === true ?
+          <MoonLoader color={color} loading={loading} css={override} size={35}/> :
+          infoCards.length > 0 ? <InfoCards onDelete={deleteInfoCard} infoCards={infoCards} onEdit={handleEditOpen}/> : <p className={classes.noInfoCards}>No info about me at the moment</p>
+        }
+      </div>
       <Modal
         open={open}
         onClose={handleClose}

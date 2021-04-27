@@ -51,15 +51,15 @@ const Groups = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
             </Grid>
             <Divider />
             {group.skills.map((skill, index) => (
-              <Grid container justify="center">
-              <li key={index} className={classes.li}>
-                <Typography  component="p">
-                  {skill}
-                <IconButton aria-label="delete" style={{dislplay: "flex"}} onClick={() => deleteSkill(index, group)}>
-                  <DeleteIcon style={{alignContent: "flex-end"}}/>
-                </IconButton>
-              </Typography>
-              </li>
+              <Grid key={skill} container justify="center">
+                <li className={classes.li}>
+                  <Typography  component="p">
+                    {skill}
+                    <IconButton aria-label="delete" style={{dislplay: "flex"}} onClick={() => deleteSkill(index, group)}>
+                      <DeleteIcon style={{alignContent: "flex-end"}}/>
+                    </IconButton>
+                  </Typography>
+                </li>
               </Grid>
             ))}
             <IconButton aria-label="delete" className={classes.deleteStyle} onClick={() => onDelete(group.id)}>

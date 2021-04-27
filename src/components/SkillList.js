@@ -135,9 +135,8 @@ const SkillList = () => {
 
   return(
     <div >
-      <Grid container justify="center" style={{marginTop: '0em', marginBottom: '2em'}}>
-        <AddButton onClick={handleOpen} addSkill={true} />
-      </Grid>
+      <AddButton onClick={handleOpen} addSkill={true} style={{display: 'block', margin: '0 auto'}} />
+
       <Grid container justify="center">
         {groups.length > 0 ? <Groups groups={groups} onDelete={deleteGroup} onEdit={handleEditOpen} onDeleteSkill={updateGroup}/> : <p style={{textAlign: "center"}}>No skills at the moment</p>}
       </Grid>

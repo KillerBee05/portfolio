@@ -7,7 +7,7 @@ import AddProject from './AddProject'
 import EditProject from './EditProject'
 import AddButton from './AddButton'
 // Loading Spinner
-import PuffLoader from "react-spinners/PuffLoader"
+import MoonLoader from "react-spinners/MoonLoader"
 import { css } from "@emotion/core"
 
 // Project Grid Stlyes
@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff'
   },
   button: {
-    color: '#fff'
+    display: 'block',
+    margin: '0 auto'
   },
   noProjects: {
     textAlign: "center",
@@ -159,11 +160,12 @@ const ProjectGrid = () => {
 
   return(
     <div className={classes.mainDiv}>
-      <Grid container justify="center">
-        <AddButton onClick={handleOpen} addProject={true} />
-      </Grid>
+        <div className={classes.button}>
+          <AddButton onClick={handleOpen} addProject={true} style={{display: 'block', margin: '0 auto'}}/>
+        </div>
+
       { loading === true ?
-        <PuffLoader color={color} loading={loading} css={override} size={35}/> :
+        <MoonLoader color={color} loading={loading} css={override} size={35}/> :
         projects.length > 0 ? <Projects onDelete={deleteProject} projects={projects} onEdit={handleEditOpen}/> : <p className={classes.noProjects}>No projects at the moment</p>
       }
 

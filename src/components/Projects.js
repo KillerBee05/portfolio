@@ -39,7 +39,7 @@ const Projects = ({ projects, onDelete, onEdit }) => {
 
   return(
     <div className={classes.mainDiv}>
-      <Grid container spacing={3} justify="center">
+      <Grid container spacing={2} justify="center">
         <Search filterText={filterText} handleChange={handleChange} />
         {projects.filter((project) => {
           if(filterText === ''){
