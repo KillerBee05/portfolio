@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles"
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ClearIcon from '@material-ui/icons/Clear'
+import swal from 'sweetalert'
+
 
 // Group Styles
 const useStyles = makeStyles({
@@ -27,13 +29,46 @@ const useStyles = makeStyles({
 // Skill group component
 const Groups = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
   const classes = useStyles();
+  // Delete group
+  const deleteGroup = (group) => {
+    // debugger;
+    swal({
+      title: "Remove Skill Group?",
+      text: "Remove "+group.group+" as a skill group?",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        onDelete(group.id)
+        swal(group.group+" has been removed", {
+          icon: "success",
+        });
+      }
+    });
+  }
   // Delete skill
   const deleteSkill = (index, skillGroup) => {
-    const id = skillGroup.id
-    const group = skillGroup.group
-    const updatedSkills = skillGroup.skills.slice(0, index).concat(skillGroup.skills.slice(index + 1, skillGroup.length))
-    const skills = updatedSkills
-    onDeleteSkill({id, group, skills})
+    swal({
+      title: "Remove Skill?",
+      text: "Remove "+skillGroup.skills[index]+" as a skill?",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        const id = skillGroup.id
+        const group = skillGroup.group
+        const updatedSkills = skillGroup.skills.slice(0, index).concat(skillGroup.skills.slice(index + 1, skillGroup.length))
+        const skills = updatedSkills
+        onDeleteSkill({id, group, skills})
+        swal(skillGroup.skills[index]+" was removed", {
+          icon: "success",
+        });
+      }
+    });
   }
 
   return(
@@ -62,7 +97,7 @@ const Groups = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
                 </li>
               </Grid>
             ))}
-            <IconButton aria-label="delete" className={classes.deleteStyle} onClick={() => onDelete(group.id)}>
+            <IconButton aria-label="delete" className={classes.deleteStyle} onClick={() => deleteGroup(group)}>
               <ClearIcon/>
             </IconButton>
           </Paper>
