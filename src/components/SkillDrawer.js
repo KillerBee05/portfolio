@@ -8,7 +8,7 @@ import SkillList from './SkillList'
 // Skill Drawer styles
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
-    height: 500,
+    height: "50%",
     backgroundColor: '#66beb2',
   }
 }));
