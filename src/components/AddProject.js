@@ -5,6 +5,8 @@ import { TextField } from '@material-ui/core'
 import AddButton from './AddButton'
 import ProgressBar from './ProgressBar'
 import moment from "moment"
+// Sweet alerts
+import Swal from 'sweetalert2'
 
 // Add project component
 const AddProject = ({ onAdd }) => {
@@ -23,7 +25,23 @@ const AddProject = ({ onAdd }) => {
     e.preventDefault()
     const createdAt = moment().format("MMMM Do YYYY")
 
-    onAdd({projectName, url, description, createdAt, link})
+    // onAdd({projectName, url, description, createdAt, link})
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Project added!'
+    })
   }
 
   // Checks & verifies images being uploaded

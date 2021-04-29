@@ -3,6 +3,8 @@ import { TextField, Grid } from '@material-ui/core'
 import AddButton from './AddButton'
 import { makeStyles } from '@material-ui/core/styles'
 import moment from "moment"
+// Sweet alerts
+import Swal from 'sweetalert2'
 
 // Style grid and textField
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +28,23 @@ const AddGroup = ({ onAdd }) => {
     const createdAt = moment().format("MMMM Do YYYY")
     e.preventDefault()
     onAdd({ group, skills, createdAt })
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Group created!'
+    })
+    
     setGroup('')
   }
   // TODO give proder around to seperate fields

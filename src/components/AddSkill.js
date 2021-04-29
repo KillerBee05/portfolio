@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Grid, TextField } from '@material-ui/core'
 import AddButton from './AddButton'
 import { makeStyles } from '@material-ui/core/styles'
+// Sweet alerts
+import Swal from 'sweetalert2'
 
 // Style grid and textField
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +50,23 @@ const AddSkill = ({ onAdd, groupId, groups }) => {
     }
     // Send skill data to api call to SkillGrid component
     onAdd({ id, group:filteredRecord[0].group, skills:newSkills })
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Skill added!'
+    })
+
     setSkills('')
   }
 
