@@ -8,6 +8,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import EditIcon from '@material-ui/icons/Edit'
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows'
 import DeleteIcon from '@material-ui/icons/Delete'
+// Sweet alerts
+import Swal from 'sweetalert2'
 
 // Project styles
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +37,27 @@ const Projects = ({ projects, onDelete, onEdit }) => {
   // Handle Search Filter
  const handleChange = (newValue) => {
    setFilterText(newValue.target.value)
+ }
+
+ const deleteProject = (project) => {
+     Swal.fire({
+     title: 'Remove Project?',
+     text: "Remove "+project.projectName+" from projects?",
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonColor: '#f97171',
+     cancelButtonColor: '#385a7c',
+     confirmButtonText: 'Delete'
+   }).then((result) => {
+     if (result.isConfirmed) {
+       onDelete(project.id)
+       Swal.fire(
+         'Deleted!',
+          project.projectName+' has been removed',
+         'success'
+       )
+     }
+   })
  }
 
   return(
@@ -73,7 +96,7 @@ const Projects = ({ projects, onDelete, onEdit }) => {
                   <DesktopWindowsIcon />
                 </Link>
               </IconButton>
-              <IconButton aria-label="delete" onClick={() => onDelete(project.id)}>
+              <IconButton aria-label="delete" onClick={() => deleteProject(project)}>
                 <DeleteIcon />
               </IconButton>
               <IconButton aria-label="edit" onClick={() => onEdit(project)}>

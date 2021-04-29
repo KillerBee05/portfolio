@@ -7,6 +7,8 @@ import EditIcon from '@material-ui/icons/Edit'
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ClearIcon from '@material-ui/icons/Clear'
+// Sweet alerts
+import Swal from 'sweetalert2'
 
 // InfoCard styles
 const useStyles = makeStyles({
@@ -27,10 +29,47 @@ const useStyles = makeStyles({
       color: "#000",
       marginTop: 10
     }
-
 });
 
+// const Toast = Swal.mixin({
+//   toast: true,
+//   position: 'top-end',
+//   showConfirmButton: false,
+//   timer: 3000,
+//   timerProgressBar: true,
+//   didOpen: (toast) => {
+//     toast.addEventListener('mouseenter', Swal.stopTimer)
+//     toast.addEventListener('mouseleave', Swal.resumeTimer)
+//   }
+// })
+//
+// Toast.fire({
+//   icon: 'success',
+//   title: 'Signed in successfully'
+// })
+
 const InfoCards = ({ infoCards, onDelete, onEdit }) => {
+  const deleteInfoCard = (infoCard) => {
+      Swal.fire({
+      title: 'Remove Info Card?',
+      text: "Remove "+infoCard.infoCardTitle+" Info Card?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#f97171',
+      cancelButtonColor: '#385a7c',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDelete(infoCard.id)
+        Swal.fire(
+          'Deleted!',
+           infoCard.infoCardTitle+' Info Card has been removed',
+          'success'
+        )
+      }
+    })
+  }
+
   const classes = useStyles();
   return(
     <div className={classes.mainDiv}>
@@ -49,7 +88,7 @@ const InfoCards = ({ infoCards, onDelete, onEdit }) => {
               <Typography color="textSecondary" component="p" align="center" className={classes.description}>
                 { infoCard.description }
               </Typography>
-              <IconButton aria-label="delete" className={classes.deleteStyle} onClick={() => onDelete(infoCard.id)}>
+              <IconButton aria-label="delete" className={classes.deleteStyle} onClick={() => deleteInfoCard(infoCard)}>
                 <ClearIcon/>
               </IconButton>
             </Paper>

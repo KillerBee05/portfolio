@@ -36,7 +36,7 @@ const AddButton = ({onClick, style, upload, addProject, addSkill, addInfoCard, a
           {addSkill &&  <AddBoxIcon fontSize="large"/>}
         </Button>
       :
-        <Button color="secondary" onClick={onClick} style={style}>
+        <Button onClick={onClick} style={style}>
           { upload && <AddBoxIcon className={classes.saveSkillButton} fontSize="large"/> }
           { addProject && <AddCircleIcon className={classes.projectButton} fontSize="large"/> }
           { addSkill && <AddBoxIcon className={classes.skillButton} fontSize="large"/> }
