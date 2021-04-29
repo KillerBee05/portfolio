@@ -3,13 +3,13 @@ import 'firebase/storage'
 import 'firebase/firestore'
 
 const firebaseConfig = firebase.initializeApp({
-  apiKey: "AIzaSyCdd5SW1RgP0oct6-iWJMio0RQBSo3ko5Y",
-  authDomain: "portfolio-7ed56.firebaseapp.com",
-  projectId: "portfolio-7ed56",
-  storageBucket: "portfolio-7ed56.appspot.com",
-  messagingSenderId: "258032597616",
-  appId: "1:258032597616:web:70f12097878d92002cd2b5",
-  measurementId: "G-BNLE35FDSX"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 })
 
 const projectStorage = firebase.storage()

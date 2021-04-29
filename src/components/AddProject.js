@@ -25,7 +25,7 @@ const AddProject = ({ onAdd }) => {
     e.preventDefault()
     const createdAt = moment().format("MMMM Do YYYY")
 
-    // onAdd({projectName, url, description, createdAt, link})
+    onAdd({projectName, url, description, createdAt, link})
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',

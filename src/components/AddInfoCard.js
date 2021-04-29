@@ -3,6 +3,8 @@ import { TextField } from '@material-ui/core'
 import AddButton from './AddButton'
 import ProgressBar from './ProgressBar'
 import moment from "moment"
+// Sweet alerts
+import Swal from 'sweetalert2'
 
 // Add infoCard component
 const AddInfoCard = ({ onAdd }) => {
@@ -15,6 +17,22 @@ const AddInfoCard = ({ onAdd }) => {
     const createdAt = moment().format("MMMM Do YYYY")
 
     onAdd({ infoCardTitle, description, createdAt })
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Info card added!'
+    })
   }
 
   return(

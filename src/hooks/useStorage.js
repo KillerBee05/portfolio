@@ -10,7 +10,7 @@ const useStorage = (image) => {
     // references
     debugger
     const storageRef = projectStorage.ref('images/' + image.name)
-    if(image.type == 'application/pdf'){
+    if(image.type === 'application/pdf'){
       const storageRef = projectStorage.ref('PDFs/' + image.name)
     }
 
