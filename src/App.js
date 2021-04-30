@@ -5,7 +5,7 @@ import Introduction from './components/Introduction'
 import SkillDrawer from './components/SkillDrawer'
 import SkillList from './components/SkillList'
 import InfoCardGrid from './components/InfoCardGrid'
-import SignIn from './components/SignIn'
+import SignInGrid from './components/SignInGrid'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
@@ -25,7 +25,7 @@ function App() {
     <div>
       <MuiThemeProvider theme={theme}>
         <Header />
-        <SignIn />
+        <SignInGrid />
       </MuiThemeProvider>
     </div>
   );

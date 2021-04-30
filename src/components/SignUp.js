@@ -31,29 +31,35 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SignIn = ({ signUp }) => {
+const SignUp = ({ signIn, handleSignUp }) => {
   const classes = useStyles();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleSignIn = () => {
+  const signUp = (e) => {
+    e.preventDefault()
     debugger;
+    handleSignUp({ email, password })
   }
   return(
     <div>
-      <form onSubmit={handleSignIn}>
-        <h3 style={{textAlign:"center", paddingTop:"3em", marginBottom:"2em"}}> Sign In </h3>
+      <form onSubmit={signUp}>
+        <h3 style={{textAlign:"center", paddingTop:"3em", marginBottom:"2em"}}> Sign Up </h3>
         <Grid container justify="center">
-          <TextField id="standard-basic" label="Email"  variant="outlined" className={classes.textField} required />
+          <TextField id="standard-basic" label="Email"  variant="outlined" className={classes.textField} required  onChange={(e) => setEmail(e.target.value)}/>
 
-          <TextField id="standard-basic" label="Password"  variant="outlined" className={classes.textField} required />
+          <TextField id="standard-basic" label="Password"  variant="outlined" className={classes.textField} required onChange={(e) => setPassword(e.target.value)}/>
+
+          <TextField id="standard-basic" label="Confirm Password"  variant="outlined" className={classes.textField} required />
         </Grid>
 
         <Grid container style={{marginLeft: "3em", marginTop:"10%"}}>
-          <AddButton  upload={true} onClick={()=> signUp()} style={{marginRight: "20em"}}/>
-          <AddButton  type={true} addSkill={true} />
+          <AddButton upload={true} style={{marginRight: "20em"}}/>
+          <AddButton type={true} addSkill={true} onClick={()=> signUp()}/>
         </Grid>
       </form>
     </div>
   )
 }
 
-export default SignIn
+export default SignUp
