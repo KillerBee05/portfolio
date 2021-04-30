@@ -9,15 +9,16 @@ import Swal from 'sweetalert2'
 // Style grid and textField
 const useStyles = makeStyles((theme) => ({
   textField :{
-    marginTop:"5em",
+    marginTop:"3em",
     width:"75%"
   },
   mainDiv: {
     marginTop: "10em",
     margin: "auto",
     width: "500px",
-    height: "550px",
+    height: "450px",
     position: "relative",
+    borderRadius: "5px",
     backgroundColor: '#fff'
   }
 }));
@@ -28,14 +29,15 @@ const SignIn = () => {
   return(
     <div className={classes.mainDiv} >
       <form>
-        <Grid container justify="center" >
+        <h3 style={{textAlign:"center", paddingTop:"1em"}}> Sign In </h3>
+        <Grid container justify="center">
           <TextField id="standard-basic" label="User Name" value='' className={classes.textField} required />
 
           <TextField id="standard-basic" label="Password" value='' className={classes.textField} required />
 
 
         </Grid>
-        <AddButton type={true} addSkill={true} style={{marginLeft: "75%"}}/>
+        <AddButton type={true} addSkill={true} style={{marginLeft: "80%", marginTop:"25%"}}/>
       </form>
     </div>
   )
