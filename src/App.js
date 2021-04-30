@@ -24,6 +24,7 @@ function App() {
   return (
     <div>
       <MuiThemeProvider theme={theme}>
+        <Header />
         <SignIn />
       </MuiThemeProvider>
     </div>
