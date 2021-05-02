@@ -10,6 +10,8 @@ const admin = require('firebase-admin');
 const { Storage } = require('@google-cloud/storage');
 
 const db = admin.firestore();
+// Auth Middleware
+const authMiddleware = require('./authMiddleware');
 
 
 // Fetch data from firestore
@@ -28,7 +30,7 @@ infoCardApp.get('/', async (req, res) => {
 });
 
 // Post data to firestore
-infoCardApp.post('/', async (req, res) => {
+infoCardApp.post('/', authMiddleware, async (req, res) => {
   const infoCard = req.body;
 
   await db.collection('infoCards').add(infoCard)
@@ -37,7 +39,7 @@ infoCardApp.post('/', async (req, res) => {
 });
 
 // Update Project data
-infoCardApp.put('/', async (req, res) => {
+infoCardApp.put('/', authMiddleware, async (req, res) => {
   const infoCard = req.body;
   await db.collection('infoCards').doc(infoCard.id).update(infoCard);
 
@@ -45,7 +47,7 @@ infoCardApp.put('/', async (req, res) => {
 });
 
 // Delete selected data from firestore
-infoCardApp.delete('/:id', async (req, res) => {
+infoCardApp.delete('/:id', authMiddleware, async (req, res) => {
   await db.collection('infoCards').doc(req.params.id).delete();
 
   res.status(200).send();

@@ -94,7 +94,7 @@ const InfoCardGrid = () => {
 
   // fetch infoCard data
   const fetchInfoCards = async () => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/infoCardApi')
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi')
     const data = await response.json()
 
     return data
@@ -102,10 +102,11 @@ const InfoCardGrid = () => {
 
   // Add infoCard data
   const addInfoCard = async (infoCard) => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/infoCardApi', {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
       body: JSON.stringify(infoCard)
     })
@@ -121,9 +122,14 @@ const InfoCardGrid = () => {
 
   // Delete infoCard data
   const deleteInfoCard = async (id) => {
-    await fetch(`https://us-central1-portfolio-7ed56.cloudfunctions.net/infoCardApi/${id}`, {
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi/${id}`, {
       method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
     })
+    const data = response.json()
     // Filter infoCard id to delete
     setInfoCards(infoCards.filter(infoCard => infoCard.id !== id))
   }
@@ -131,10 +137,11 @@ const InfoCardGrid = () => {
   // Update infoCard data
   const updateInfoCard = async (updatedData) => {
     const id = updatedData.id
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/infoCardApi', {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi', {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
       body: JSON.stringify(updatedData),
     })
@@ -161,8 +168,7 @@ const InfoCardGrid = () => {
   return(
     <div className={classes.mainDiv}>
       <div className={classes.button}>
-        <AddButton onClick={handleOpen} addInfoCard={true} style={{display: 'block', margin: '0 auto'}} />
-
+        <AddButton onClick={handleOpen} addInfoCard={true} style={{display: 'block', margin: '0 auto'}} /> 
         { loading === true ?
           <MoonLoader color={color} loading={loading} css={override} size={35}/> :
           infoCards.length > 0 ? <InfoCards onDelete={deleteInfoCard} infoCards={infoCards} onEdit={handleEditOpen}/> : <p className={classes.noInfoCards}>No info about me at the moment</p>

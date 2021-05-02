@@ -31,7 +31,6 @@ const Groups = ({ groups, onEdit, onDelete, onDeleteSkill }) => {
   const classes = useStyles();
   // Delete group
   const deleteGroup = (group) => {
-    // debugger;
     swal({
       title: "Remove Skill Group?",
       text: "Remove "+group.group+" as a skill group?",

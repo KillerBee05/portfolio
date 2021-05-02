@@ -48,26 +48,47 @@ const SignInGrid = () => {
 
   // Sign up data
   const handleSignUp = async (user) => {
-    debugger;
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi', {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/authApi/signUp', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(user)
     })
-    console.log(user)
-    // Close modal on add
-    // setOpen(false)
-    // const data = await response.json()
-    // Merge new project data
-    // setProjects([...projects, data])
-    // Get ID for new project
-    // const projectData = await fetchProjects()
-    // setProjects(projectData)
+
+    const data = await response.json()
+
+    // add sweet alert here from respone data
+
+    // Switch to sign in if success
+    // if(response.status === 200){
+    //   setSignUp(false)
+    // }
   }
 
-  const handleSignIn = () => {
+  const handleSignIn = async (user) => {
+      // need to set API key to environment variable
+    const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCdd5SW1RgP0oct6-iWJMio0RQBSo3ko5Y', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(user)
+    })
+
+    const data = await response.json()
+    // let errorMessage = ''
+    // console.log(data.error.message)
+    // add sweet alert here from respone data
+    if(response.status === 200){
+      // sweet alerts
+        alert('we signed in '+data.email)
+        localStorage.setItem("token", data.idToken);
+        console.log(localStorage)
+    }
+    else {
+      alert(data.error.message)
+    }
   }
 
   const changeSignIn = () => {

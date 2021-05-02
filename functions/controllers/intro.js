@@ -10,7 +10,8 @@ const admin = require('firebase-admin');
 const { Storage } = require('@google-cloud/storage');
 
 const db = admin.firestore();
-
+// Auth Middleware
+const authMiddleware = require('./authMiddleware');
 
 // Fetch data from firestore
 introApp.get('/', async (req, res) => {
@@ -27,7 +28,7 @@ introApp.get('/', async (req, res) => {
 });
 
 // Post data to firestore
-introApp.post('/', async (req, res) => {
+introApp.post('/', authMiddleware, async (req, res) => {
   const introduction = req.body;
   await db.collection('introduction').doc('text').set({introduction})
   // TODO push id with data, so we can delete right after id

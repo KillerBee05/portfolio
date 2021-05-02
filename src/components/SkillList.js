@@ -70,17 +70,18 @@ const SkillList = () => {
 
   // Fetch group data
   const fetchGroups = async () => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi')
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/groupApi')
     const data = await response.json()
     return data
   }
 
   // Add group
   const addGroup = async (group) => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi', {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/groupApi', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
       body: JSON.stringify(group)
     })
@@ -95,10 +96,11 @@ const SkillList = () => {
   // Update group
   const updateGroup = async (updatedData) => {
     const id = updatedData.id
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi', {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/groupApi', {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
       body: JSON.stringify(updatedData),
     })
@@ -112,9 +114,14 @@ const SkillList = () => {
 
   // Delete group
   const deleteGroup = async (id) => {
-    await fetch(`https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi/${id}`, {
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/groupApi/${id}`, {
       method: 'DELETE',
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
     })
+    const data = response.json()
+
     setGroups(groups.filter(group => group.id !== id))
   }
 

@@ -10,6 +10,8 @@ const admin = require('firebase-admin');
 const { Storage } = require('@google-cloud/storage');
 
 const db = admin.firestore();
+// Auth Middleware
+const authMiddleware = require('./authMiddleware');
 
 // Fetch data from firestore
 pdfApp.get('/', async (req, res) => {
@@ -26,7 +28,7 @@ pdfApp.get('/', async (req, res) => {
 });
 
 // Post data to firestore
-pdfApp.post('/', async (req, res) => {
+pdfApp.post('/', authMiddleware, async (req, res) => {
   const pdf = req.body;
   await db.collection('resume').doc("pdf").set({pdf})
   // TODO push id with data, so we can delete right after id

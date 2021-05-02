@@ -38,7 +38,6 @@ const SignUp = ({ signIn, handleSignUp }) => {
 
   const signUp = (e) => {
     e.preventDefault()
-    debugger;
     handleSignUp({ email, password })
   }
   return(
@@ -54,8 +53,8 @@ const SignUp = ({ signIn, handleSignUp }) => {
         </Grid>
 
         <Grid container style={{marginLeft: "3em", marginTop:"10%"}}>
-          <AddButton upload={true} style={{marginRight: "20em"}}/>
-          <AddButton type={true} addSkill={true} onClick={()=> signUp()}/>
+          <AddButton upload={true} onClick={()=> signIn()} style={{marginRight: "20em"}}/>
+          <AddButton type={true} addSkill={true} />
         </Grid>
       </form>
     </div>

@@ -120,18 +120,19 @@ const Header = () => {
 
   // fetch PDF
   const fetchPDF = async () => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/pdfApi')
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/pdfApi')
     const data = await response.json()
-    // debugger;
+    
     return data
   }
 
   // Add PDF
   const addPDF = async (pdf) => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/pdfApi', {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/pdfApi', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
       body: JSON.stringify(pdf)
     })

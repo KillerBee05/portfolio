@@ -8,8 +8,11 @@ projectApp.use(cors({ origin: true}));
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const { Storage } = require('@google-cloud/storage');
-admin.initializeApp();
+
 const db = admin.firestore();
+// Auth Middleware
+const authMiddleware = require('./authMiddleware');
+// projectApp.use(authMiddleware);
 
 // Fetch data from firestore
 projectApp.get('/', async (req, res) => {
@@ -27,16 +30,17 @@ projectApp.get('/', async (req, res) => {
 });
 
 // Post data to firestore
-projectApp.post('/', async (req, res) => {
+projectApp.post('/', authMiddleware, async (req, res) => {
   const project = req.body;
 
   await db.collection('projects').add(project)
+  // await db.collection('projects').doc(user.uid).collection('projects').add(project)
   // TODO push id with data, so we can delete right after id
   res.status(201).send(project);
 });
 
 // Update Project data
-projectApp.put('/', async (req, res) => {
+projectApp.put('/', authMiddleware, async (req, res) => {
   const project = req.body;
   await db.collection('projects').doc(project.id).update(project);
 
@@ -44,7 +48,7 @@ projectApp.put('/', async (req, res) => {
 });
 
 // Delete selected data from firestore
-projectApp.delete('/:id', async (req, res) => {
+projectApp.delete('/:id', authMiddleware, async (req, res) => {
   await db.collection('projects').doc(req.params.id).delete();
 
   res.status(200).send();

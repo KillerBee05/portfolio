@@ -31,20 +31,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SignIn = ({ signUp }) => {
+const SignIn = ({ signUp, handleSignIn }) => {
   const classes = useStyles();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleSignIn = () => {
-    debugger;
+  const signIn = (e) => {
+    e.preventDefault()
+    let returnSecureToken = true
+    
+    handleSignIn({ email, password, returnSecureToken})
   }
   return(
     <div>
-      <form onSubmit={handleSignIn}>
+      <form onSubmit={signIn}>
         <h3 style={{textAlign:"center", paddingTop:"3em", marginBottom:"2em"}}> Sign In </h3>
         <Grid container justify="center">
-          <TextField id="standard-basic" label="Email"  variant="outlined" className={classes.textField} required />
+          <TextField id="standard-basic" label="Email"  variant="outlined" className={classes.textField} required onChange={(e) => setEmail(e.target.value)} />
 
-          <TextField id="standard-basic" label="Password"  variant="outlined" className={classes.textField} required />
+          <TextField id="standard-basic" label="Password"  variant="outlined" className={classes.textField} required onChange={(e) => setPassword(e.target.value)} />
         </Grid>
 
         <Grid container style={{marginLeft: "3em", marginTop:"10%"}}>

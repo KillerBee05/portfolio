@@ -10,7 +10,8 @@ const admin = require('firebase-admin');
 const { Storage } = require('@google-cloud/storage');
 
 const db = admin.firestore();
-
+// Auth Middleware
+const authMiddleware = require('./authMiddleware');
 
 // Fetch data from firestore
 groupApp.get('/', async (req, res) => {
@@ -28,7 +29,7 @@ groupApp.get('/', async (req, res) => {
 });
 
 // Fetch data from firestore
-groupApp.get('/selectGroup', async (req, res) => {
+groupApp.get('/selectGroup', authMiddleware, async (req, res) => {
   const snapshot = await db.collection('/groups').get();
 
   let groups = [];
@@ -43,7 +44,7 @@ groupApp.get('/selectGroup', async (req, res) => {
 });
 
 // Post data to firestore
-groupApp.post('/', async (req, res) => {
+groupApp.post('/', authMiddleware, async (req, res) => {
   const group = req.body;
 
   await db.collection('groups').add(group)
@@ -51,8 +52,8 @@ groupApp.post('/', async (req, res) => {
   res.status(201).send(group);
 });
 
-// Update Project data
-groupApp.put('/', async (req, res) => {
+// Update group data
+groupApp.put('/', authMiddleware, async (req, res) => {
   const group = req.body;
   await db.collection('groups').doc(group.id).update(group);
 
@@ -60,7 +61,7 @@ groupApp.put('/', async (req, res) => {
 });
 
 // Delete selected data from firestore
-groupApp.delete('/:id', async (req, res) => {
+groupApp.delete('/:id', authMiddleware, async (req, res) => {
   await db.collection('groups').doc(req.params.id).delete();
 
   res.status(200).send();

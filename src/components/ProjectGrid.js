@@ -94,7 +94,7 @@ const ProjectGrid = () => {
 
   // fetch project data
   const fetchProjects = async () => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi')
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/projectApi')
     const data = await response.json()
 
     return data
@@ -102,10 +102,11 @@ const ProjectGrid = () => {
 
   // Add project data
   const addProject = async (project) => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi', {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/projectApi', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
       body: JSON.stringify(project)
     })
@@ -121,9 +122,13 @@ const ProjectGrid = () => {
 
   // Delete project data
   const deleteProject = async (id) => {
-    await fetch(`https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi/${id}`, {
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/projectApi/${id}`, {
       method: 'DELETE',
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
     })
+    const data = response.json()
     // Filter project id to delete
     setProjects(projects.filter(project => project.id !== id))
   }
@@ -131,10 +136,11 @@ const ProjectGrid = () => {
   // Update project data
   const updateProject = async (updatedData) => {
     const id = updatedData.id
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/projectApi', {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/projectApi', {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
       body: JSON.stringify(updatedData),
     })
