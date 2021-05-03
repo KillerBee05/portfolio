@@ -58,8 +58,9 @@ authApp.post('/signUp', async (req, res) => {
 
 // Fetch session from firestore
 authApp.get('/sessionDetails', authMiddleware, async (req, res) => {
-
-  res.status(200).send(true);
+  let userId = res.req.user.uid
+  // console.log(res.req.user.uid)
+  res.status(200).send(JSON.stringify({"userId": userId}));
 
   // res.status(200).send(JSON.stringify("Successfully checked session"));
 });

@@ -82,9 +82,10 @@ const SignInGrid = () => {
     // add sweet alert here from respone data
     if(response.status === 200){
       // sweet alerts
+      debugger;
         alert('we signed in '+data.email)
-        localStorage.setItem("token", data.idToken);
-        console.log(localStorage)
+        localStorage.setItem("token", data.idToken)
+        // localStorage.setItem("userId", data.userId)
     }
     else {
       alert(data.error.message)

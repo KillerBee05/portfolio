@@ -8,7 +8,7 @@ import InfoCardGrid from './components/InfoCardGrid'
 import SignInGrid from './components/SignInGrid'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 // React Router
-// import
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const theme = createMuiTheme({
   typography: {
@@ -24,6 +24,7 @@ const theme = createMuiTheme({
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
+  const [userId, setUserId] = useState(1)
 
   useEffect(() => {
     const getSession = async () => {
@@ -41,33 +42,46 @@ function App() {
       headers: {
         'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
+      // body: JSON.stringify(infoCard)
     })
-    // Check user token
+    debugger;
+    // current user id
+    const data = await response.json()
     if(response.status === 200){
-      const data = true
-      return data
+      return true
     }
     else {
       // Call log user out
       logUserOut()
+      alert('logged out')
     }
   }
 
   // log user out
   const logUserOut = () => {
-    debugger;
     // clear local storage token & route user to sign in
+    localStorage.setItem("token", '')
+    console.log(localStorage)
   }
 
   return (
-    <div>
-      <MuiThemeProvider theme={theme}>
-        <Header />
-        <InfoCardGrid />
-        <Introduction />
-        <ProjectGrid />
-      </MuiThemeProvider>
-    </div>
+    <Router>
+      <div>
+        <MuiThemeProvider theme={theme}>
+          <Switch>
+            <Route path="/signIn">
+              <Header />
+              <InfoCardGrid />
+              <Introduction />
+              <ProjectGrid />
+            </Route>
+            <Route path="/">
+              <SignInGrid />
+            </Route>
+          </Switch>
+        </MuiThemeProvider>
+      </div>
+    </Router>
   );
 }
 

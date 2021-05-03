@@ -16,7 +16,9 @@ const authMiddleware = require('./authMiddleware');
 
 // Fetch data from firestore
 infoCardApp.get('/', async (req, res) => {
-  const snapshot = await db.collection('/infoCards').orderBy('createdAt', 'asc').get();
+  let userId = 1;
+  // const snapshot = await db.collection('/infoCards').orderBy('createdAt', 'asc').get();
+  db.collectionGroup('infoCards').where('userId', '==', userId).get()
 
   let infoCards = [];
   snapshot.forEach((doc) => {
