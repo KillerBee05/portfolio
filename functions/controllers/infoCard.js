@@ -10,6 +10,7 @@ const admin = require('firebase-admin');
 const { Storage } = require('@google-cloud/storage');
 
 const db = admin.firestore();
+const client = require('firebase-tools');
 // Auth Middleware
 const authMiddleware = require('./authMiddleware');
 
@@ -72,8 +73,11 @@ infoCardApp.put('/', authMiddleware, async (req, res) => {
 // Delete selected data from firestore
 infoCardApp.delete('/:id', authMiddleware, async (req, res) => {
   // console.log(req)
-  let collectionPath = db.collection('users').doc(req.params.userId).collection('infoCards').doc(req.params.id).delete();
-  await db.delete(collectionPath, {
+
+  let collectionPath = functions.firestore.document("users/{req.params.userId}/infoCards/{req.params.id}");
+  // let collectionPath = db.collection('users').doc(req.params.userId).collection('infoCards').doc(req.params.id).delete();
+  await client.firestore
+      .delete(collectionPath, {
         project: process.env.GCLOUD_PROJECT,
         recursive: false,
         yes: false
