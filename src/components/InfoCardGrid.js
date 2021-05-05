@@ -9,6 +9,7 @@ import AddButton from './AddButton'
 // Loading Spinner
 import MoonLoader from "react-spinners/MoonLoader"
 import { css } from "@emotion/core"
+import { Link, useHistory } from 'react-router-dom'
 
 // InfoCard Grid Stlyes Modal, Grid, makeStyles
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +64,8 @@ const InfoCardGrid = () => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(true);
   const [color, setColor] = useState("#f97171");
+  const history = useHistory()
+  const [userId, setUserId] = useState(localStorage.getItem('userId'))
 
   // Open add infoCard Modal
   const handleOpen = () => {
@@ -92,11 +95,16 @@ const InfoCardGrid = () => {
     getInfoCards()
   }, [])
 
-  // fetch infoCard data
+  // fetch user infoCard data
   const fetchInfoCards = async () => {
-    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi')
+    debugger;
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi/auth?${userId}`, {
+      method: 'GET',
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
     const data = await response.json()
-
     return data
   }
 
@@ -113,8 +121,6 @@ const InfoCardGrid = () => {
     // Close modal on add
     setOpen(false)
     // const data = await response.json()
-    // Merge new infoCard data
-    // setinfoCards([...infoCards, data])
     // Get ID for new infoCard
     const infoCardData = await fetchInfoCards()
     setInfoCards(infoCardData)
@@ -136,6 +142,7 @@ const InfoCardGrid = () => {
 
   // Update infoCard data
   const updateInfoCard = async (updatedData) => {
+    debugger;
     const id = updatedData.id
     const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi', {
       method: 'PUT',
@@ -161,7 +168,7 @@ const InfoCardGrid = () => {
   const body = (
      <div style={modalStyle} className={classes.paper}>
        { editFlag === false ? <h2>Add InfoCard Here!</h2> : <h2>Update {editInfoCardData.infoCardName} InfoCard!</h2> }
-       { editFlag === false ? <AddInfoCard onAdd={addInfoCard} /> : <EditInfoCard infoCardData={editInfoCardData} onUpdate={updateInfoCard}/> }
+       { editFlag === false ? <AddInfoCard onAdd={addInfoCard} userId={userId} /> : <EditInfoCard infoCardData={editInfoCardData} onUpdate={updateInfoCard} /> }
      </div>
    );
 

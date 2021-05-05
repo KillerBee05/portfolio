@@ -7,7 +7,7 @@ import moment from "moment"
 import Swal from 'sweetalert2'
 
 // Add infoCard component
-const AddInfoCard = ({ onAdd }) => {
+const AddInfoCard = ({ onAdd, userId }) => {
   const [infoCardTitle, setInfoCardTitle] = useState('')
   const [description, setDescription] = useState('')
 
@@ -16,7 +16,7 @@ const AddInfoCard = ({ onAdd }) => {
     e.preventDefault()
     const createdAt = moment().format("MMMM Do YYYY")
 
-    onAdd({ infoCardTitle, description, createdAt })
+    onAdd({ userId, infoCardTitle, description, createdAt })
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',

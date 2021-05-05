@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
-import AddButton from './AddButton'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
+import AddButton from '../components/AddButton'
+import SignIn from '../components/SignIn'
+import SignUp from '../components/SignUp'
 import { makeStyles } from '@material-ui/core/styles'
 // Sweet alerts
 import Swal from 'sweetalert2'
+import { Link, useHistory } from 'react-router-dom'
 
 
 // test
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 const SignInGrid = () => {
   const classes = useStyles();
   const [signUp, setSignUp] = useState(false)
+  const history = useHistory()
 
   // Sign up data
   const handleSignUp = async (user) => {
@@ -57,13 +59,11 @@ const SignInGrid = () => {
     })
 
     const data = await response.json()
-
     // add sweet alert here from respone data
-
-    // Switch to sign in if success
-    // if(response.status === 200){
-    //   setSignUp(false)
-    // }
+    if(response.status === 200){
+      alert('You are now signed up!')
+      setSignUp(false)
+    }
   }
 
   const handleSignIn = async (user) => {
@@ -77,18 +77,37 @@ const SignInGrid = () => {
     })
 
     const data = await response.json()
-    // let errorMessage = ''
-    // console.log(data.error.message)
-    // add sweet alert here from respone data
     if(response.status === 200){
       // sweet alerts
-      debugger;
+      // also set time out inside local storage & refresh token
         alert('we signed in '+data.email)
         localStorage.setItem("token", data.idToken)
-        // localStorage.setItem("userId", data.userId)
+        fetchSessionDetails()
     }
     else {
       alert(data.error.message)
+    }
+  }
+
+  // Fetch session data
+  // Look into refresh tokens
+  const fetchSessionDetails = async () => {
+    debugger;
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/authApi/sessionDetails', {
+      method: 'GET',
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+
+    if(response.status === 200){
+      // data has current user id and other info
+      const data = await response.json()
+      // Id like to store this in state rather than local storage
+      localStorage.setItem("userId", data.userId)
+
+      history.push("/")
+      // return data
     }
   }
 

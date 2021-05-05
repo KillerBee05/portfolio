@@ -80,7 +80,7 @@ const PurpleSwitch = withStyles({
 })(Switch);
 
 // Header component
-const Header = () => {
+const Header = ({ viewPortfolio }) => {
   const classes = useStyles();
   const [showSkills, setShowSkills] = useState(false)
   const [openDrawer, setOpenDrawer] = useState(false)
@@ -122,7 +122,7 @@ const Header = () => {
   const fetchPDF = async () => {
     const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/pdfApi')
     const data = await response.json()
-    
+
     return data
   }
 
@@ -180,9 +180,12 @@ const Header = () => {
             </Link>
           }
         </section>
-        <div className={classes.hide}>
-        <AddButton addPdf={true} onClick={handleOpen} />
-        </div>
+        {viewPortfolio === true && 
+          <div className={classes.hide}>
+            <AddButton addPdf={true} onClick={handleOpen} />
+          </div>
+        }
+
       </Toolbar>
       <SkillDrawer switch={handleChange} open={openDrawer}/>
       <Modal

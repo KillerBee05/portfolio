@@ -1,14 +1,11 @@
 import { useState ,useEffect } from 'react'
 import Header from './components/Header'
-import ProjectGrid from './components/ProjectGrid'
-import Introduction from './components/Introduction'
-import SkillDrawer from './components/SkillDrawer'
-import SkillList from './components/SkillList'
-import InfoCardGrid from './components/InfoCardGrid'
-import SignInGrid from './components/SignInGrid'
+import MyPortfolio from './components/MyPortfolio'
+import ViewPortfolioProfile from './components/viewPortfolio/ViewPortfolioProfile'
+import SignInGrid from './pages/SignInGrid'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 // React Router
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom'
 
 const theme = createMuiTheme({
   typography: {
@@ -23,59 +20,48 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [userId, setUserId] = useState(1)
-
-  useEffect(() => {
-    const getSession = async () => {
-      const sessionDetails = await fetchSessionDetails()
-      setLoggedIn(sessionDetails)
-    }
-    getSession()
-  }, [])
-
-  // Fetch session data
-  // Look into refresh tokens
-  const fetchSessionDetails = async () => {
-    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/authApi/sessionDetails', {
-      method: 'GET',
-      headers: {
-        'authorization': 'Bearer ' + localStorage.getItem('token'),
-      },
-      // body: JSON.stringify(infoCard)
-    })
-    debugger;
-    // current user id
-    const data = await response.json()
-    if(response.status === 200){
-      return true
-    }
-    else {
-      // Call log user out
-      logUserOut()
-      alert('logged out')
-    }
-  }
-
-  // log user out
-  const logUserOut = () => {
-    // clear local storage token & route user to sign in
-    localStorage.setItem("token", '')
-    console.log(localStorage)
-  }
-
+  // useEffect(() => {
+  //   debugger;
+  //   alert("app")
+  //   const getSession = async () => {
+  //     const sessionDetails = await fetchSessionDetails()
+  //   }
+  //   getSession()
+  // }, [])
+  //
+  // // Fetch session data
+  // // Look into refresh tokens
+  // const fetchSessionDetails = async () => {
+  //   debugger;
+  //   const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/authApi/sessionDetails', {
+  //     method: 'GET',
+  //     headers: {
+  //       'authorization': 'Bearer ' + localStorage.getItem('token'),
+  //     },
+  //   })
+  //
+  //   if(response.status === 200){
+  //     // data has current user id and other info
+  //     const data = await response.json()
+  //     // Id like to store this in state rather than local storage
+  //     localStorage.setItem("userId", data.userId)
+  //     return data
+  //   }
+  // }
   return (
     <Router>
       <div>
         <MuiThemeProvider theme={theme}>
           <Switch>
-            <Route path="/signIn">
+            <Route path="/" exact>
               <Header />
-              <InfoCardGrid />
-              <Introduction />
-              <ProjectGrid />
+              <MyPortfolio />
             </Route>
-            <Route path="/">
+            <Route path="/portfolio/:id" exact>
+              <Header />
+              <ViewPortfolioProfile />
+            </Route>
+            <Route path="/signIn">
               <SignInGrid />
             </Route>
           </Switch>
