@@ -74,7 +74,7 @@ infoCardApp.put('/', authMiddleware, async (req, res) => {
 infoCardApp.delete('/:id', authMiddleware, async (req, res) => {
   // console.log(req)
 
-  let collectionPath = functions.firestore.document("users/{req.params.userId}/infoCards/{req.params.id}");
+  let collectionPath = functions.firestore.document(`users/${req.params.userId}/infoCards/${req.params.id}`);
   // let collectionPath = db.collection('users').doc(req.params.userId).collection('infoCards').doc(req.params.id).delete();
   await client.firestore
       .delete(collectionPath, {
