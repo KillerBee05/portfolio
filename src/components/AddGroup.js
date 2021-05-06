@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Add skill group component
-const AddGroup = ({ onAdd }) => {
+const AddGroup = ({ onAdd, userId }) => {
   const classes = useStyles();
   const [group, setGroup] = useState('')
   const [skills, setSkills] = useState([])
@@ -27,7 +27,7 @@ const AddGroup = ({ onAdd }) => {
     // Order by created time
     const createdAt = moment().format("MMMM Do YYYY")
     e.preventDefault()
-    onAdd({ group, skills, createdAt })
+    onAdd({ userId, group, skills, createdAt })
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -44,7 +44,7 @@ const AddGroup = ({ onAdd }) => {
       icon: 'success',
       title: 'Group created!'
     })
-    
+
     setGroup('')
   }
   // TODO give proder around to seperate fields

@@ -40,6 +40,7 @@ const SkillList = () => {
   const [open, setOpen] = useState(false)
   const [editFlag, setEditFlag] = useState(false)
   const [editGroupData, setEditGroupData] = useState()
+  const [userId, setUserId] = useState(localStorage.getItem('userId'))
 
   // Open modal
   const handleOpen = () => {
@@ -70,7 +71,13 @@ const SkillList = () => {
 
   // Fetch group data
   const fetchGroups = async () => {
-    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/groupApi')
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/groupApi/auth?${userId}`, {
+      method: 'GET',
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+
     const data = await response.json()
     return data
   }
@@ -134,8 +141,8 @@ const SkillList = () => {
   // Set modal body
   const body = (
      <div style={modalStyle} className={classes.paper}>
-       {editFlag === false ? <AddGroup onAdd={addGroup} /> : <EditGroup onEdit={updateGroup} groupData={editGroupData}/>}
-       {groups.length > 0 && editFlag === false ? <SelectGroup getGroupId={fetchSelectedGroupId} /> : ''}
+       {editFlag === false ? <AddGroup onAdd={addGroup} userId={userId} /> : <EditGroup onEdit={updateGroup} groupData={editGroupData} userId={userId} />}
+       {groups.length > 0 && editFlag === false ? <SelectGroup getGroupId={fetchSelectedGroupId} userId={userId}/> : ''}
        {groups.length > 0 && editFlag === false ? <AddSkill groups={groups} onAdd={updateGroup} addSkill={true} groupId={groupSelected} />  : ''}
      </div>
    );

@@ -14,6 +14,7 @@ const MyPortfolio = () => {
   const history = useHistory()
 
   useEffect(() => {
+    // debugger;
     const getSession = async () => {
       const sessionDetails = await fetchSessionDetails()
     }

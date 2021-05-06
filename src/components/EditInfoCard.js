@@ -3,7 +3,7 @@ import { TextField } from '@material-ui/core'
 import AddButton from './AddButton'
 
 // Edit infoCard component
-const EditInfoCard = ({infoCardData, onUpdate }) => {
+const EditInfoCard = ({infoCardData, onUpdate, userId }) => {
   const [infoCardTitle, setInfoCardTitle] = useState(infoCardData.infoCardTitle)
   const [description, setDescription] = useState(infoCardData.description)
   const [createdAt, setCreatedAt] = useState(infoCardData.createdAt)
@@ -12,9 +12,8 @@ const EditInfoCard = ({infoCardData, onUpdate }) => {
   const updateInfoCard = (e) => {
     e.preventDefault()
     const id = infoCardData.id
-    debugger;
     // May only need the userId on add. So we may be able to delete it here
-    onUpdate({ id, infoCardTitle, description, createdAt})
+    onUpdate({userId, id, infoCardTitle, description, createdAt})
   }
 
   // TODO fix save button and submit form

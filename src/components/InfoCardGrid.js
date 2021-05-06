@@ -30,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
   noInfoCards: {
     textAlign: "center",
-    paddingTop: "5em"
+    marginTop:"2em",
+    paddingBottom: "5em",
+    color: "black"
   }
 }));
 
@@ -97,7 +99,6 @@ const InfoCardGrid = () => {
 
   // fetch user infoCard data
   const fetchInfoCards = async () => {
-    debugger;
     const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi/auth?${userId}`, {
       method: 'GET',
       headers: {
@@ -131,7 +132,6 @@ const InfoCardGrid = () => {
     const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-type': 'application/json',
         'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
     })
@@ -142,7 +142,6 @@ const InfoCardGrid = () => {
 
   // Update infoCard data
   const updateInfoCard = async (updatedData) => {
-    debugger;
     const id = updatedData.id
     const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi', {
       method: 'PUT',
@@ -168,7 +167,7 @@ const InfoCardGrid = () => {
   const body = (
      <div style={modalStyle} className={classes.paper}>
        { editFlag === false ? <h2>Add InfoCard Here!</h2> : <h2>Update {editInfoCardData.infoCardName} InfoCard!</h2> }
-       { editFlag === false ? <AddInfoCard onAdd={addInfoCard} userId={userId} /> : <EditInfoCard infoCardData={editInfoCardData} onUpdate={updateInfoCard} /> }
+       { editFlag === false ? <AddInfoCard onAdd={addInfoCard} userId={userId} /> : <EditInfoCard infoCardData={editInfoCardData} onUpdate={updateInfoCard} userId={userId} /> }
      </div>
    );
 
@@ -178,7 +177,7 @@ const InfoCardGrid = () => {
         <AddButton onClick={handleOpen} addInfoCard={true} style={{display: 'block', margin: '0 auto'}} />
         { loading === true ?
           <MoonLoader color={color} loading={loading} css={override} size={35}/> :
-          infoCards.length > 0 ? <InfoCards onDelete={deleteInfoCard} infoCards={infoCards} onEdit={handleEditOpen}/> : <p className={classes.noInfoCards}>No info about me at the moment</p>
+          infoCards.length > 0 ? <InfoCards onDelete={deleteInfoCard} infoCards={infoCards} onEdit={handleEditOpen}/> : <p className={classes.noInfoCards}>No info cards at the moment</p>
         }
       </div>
       <Modal

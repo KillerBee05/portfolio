@@ -32,12 +32,12 @@ module.exports = validateFirebaseIdToken = async (req, res, next) => {
 
   try {
     const decodedIdToken = await admin.auth().verifyIdToken(idToken);
-    console.log('ID Token correctly decoded', decodedIdToken);
+    // console.log('ID Token correctly decoded', decodedIdToken);
     req.user = decodedIdToken;
     next();
     return;
   } catch (error) {
-    console.log('Error while verifying Firebase ID token:', error);
+    // console.log('Error while verifying Firebase ID token:', error);
     res.status(403).send('Unauthorized');
     return;
   }

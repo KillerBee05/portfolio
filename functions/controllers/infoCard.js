@@ -17,9 +17,6 @@ const authMiddleware = require('./authMiddleware');
 // Fetch data from firestore
 infoCardApp.get('/', async (req, res) => {
   let userId = res.req._parsedUrl.query;
-  console.log(userId)
-  // 5ZnEuZ2lD6O68k0vOUrmetY4OQm2
-  // kNEjkZXvzmSLdpa96IqcY9wRftx2
   // const snapshot = await db.collection('/infoCards').where('userId', '==', userId).orderBy('createdAt', 'asc').get();
   const snapshot = await db.collectionGroup('infoCards').where('userId', '==', userId).orderBy('createdAt', 'asc').get();
 
@@ -56,31 +53,33 @@ infoCardApp.get('/auth', authMiddleware, async (req, res) => {
 // db.collection('users').doc(user.uid).collection("reports").add
 infoCardApp.post('/', authMiddleware, async (req, res) => {
   const infoCard = req.body;
-
   await db.collection('users').doc(infoCard.userId).collection('infoCards').add(infoCard)
-  // TODO push id with data, so we can delete right after id
+
   res.status(201).send(infoCard);
 });
 
 // Update Project data
 infoCardApp.put('/', authMiddleware, async (req, res) => {
   const infoCard = req.body;
-  await db.collection('users').doc(infoCard.userId).collection('infoCards').doc(infoCard.id).update(infoCard);
+  const userId = infoCard.userId;
+  await db.collection('users').doc(userId).collection('infoCards').doc(infoCard.id).update(infoCard);
 
   res.status(200).send(infoCard);
 });
 
 // Delete selected data from firestore
 infoCardApp.delete('/:id', authMiddleware, async (req, res) => {
-  // console.log(req)
+  let userId = res.req.user.uid;
+  let id = req.params.id;
 
-  let collectionPath = functions.firestore.document(`users/${req.params.userId}/infoCards/${req.params.id}`);
+  let collectionPath = `users/${userId}/infoCards/${id}`;
+  // console.log(collectionPath)
   // let collectionPath = db.collection('users').doc(req.params.userId).collection('infoCards').doc(req.params.id).delete();
   await client.firestore
       .delete(collectionPath, {
         project: process.env.GCLOUD_PROJECT,
         recursive: false,
-        yes: false
+        yes: true
       });
 
   res.status(200).send();

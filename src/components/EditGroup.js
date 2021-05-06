@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Edit skill group component
-const EditGroup = ({ onEdit, groupData }) => {
+const EditGroup = ({ onEdit, groupData, userId }) => {
   const classes = useStyles();
   const [group, setGroup] = useState(groupData.group)
   const [skills, setSkills] = useState(groupData.skills)
@@ -25,7 +25,7 @@ const EditGroup = ({ onEdit, groupData }) => {
   const updateGroup = (e) => {
     e.preventDefault()
     const id = groupData.id
-    onEdit({id, group, skills})
+    onEdit({userId, id, group, skills})
     setGroup('')
   }
 

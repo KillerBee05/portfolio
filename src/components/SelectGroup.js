@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Select, MenuItem, Grid } from '@material-ui/core'
 
 // Select Group component
-const SelectGroup = ({ getGroupId }) => {
+const SelectGroup = ({ getGroupId, userId }) => {
   const [options, setOptions] = useState([])
   const [selected, setSelected] = useState('')
 
@@ -18,7 +18,12 @@ const SelectGroup = ({ getGroupId }) => {
 
   // Fetch group data
   const fetchGroupOptions = async () => {
-    const response = await fetch('https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi/selectGroup')
+    const response = await fetch(`https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi/selectGroup/auth?${userId}`, {
+      method: 'GET',
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
     const data = await response.json()
 
     return data

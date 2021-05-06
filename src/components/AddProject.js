@@ -9,7 +9,7 @@ import moment from "moment"
 import Swal from 'sweetalert2'
 
 // Add project component
-const AddProject = ({ onAdd }) => {
+const AddProject = ({ onAdd, userId }) => {
   const [projectName, setProjectName] = useState('')
   const [description, setDescription] = useState('')
   const [link, setLink] = useState('')
@@ -25,7 +25,7 @@ const AddProject = ({ onAdd }) => {
     e.preventDefault()
     const createdAt = moment().format("MMMM Do YYYY")
 
-    onAdd({projectName, url, description, createdAt, link})
+    onAdd({ userId, projectName, url, description, createdAt, link })
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',

@@ -30,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
   noProjects: {
     textAlign: "center",
-    paddingTop: "5em"
+    marginTop:"2em",
+    paddingBottom: "5em",
+    color: "black"
   }
 }));
 
@@ -61,8 +63,9 @@ const ProjectGrid = () => {
   const [editProjectData, setEditProjectData] = useState()
   const [modalStyle] = useState(getModalStyle)
   const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(true);
-  const [color, setColor] = useState("#f97171");
+  const [loading, setLoading] = useState(true)
+  const [color, setColor] = useState("#f97171")
+  const [userId, setUserId] = useState(localStorage.getItem('userId'))
 
   // Open add project Modal
   const handleOpen = () => {
@@ -92,11 +95,15 @@ const ProjectGrid = () => {
     getProjects()
   }, [])
 
-  // fetch project data
+  // fetch user project data
   const fetchProjects = async () => {
-    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/projectApi')
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/projectApi/auth?${userId}`, {
+      method: 'GET',
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
     const data = await response.json()
-
     return data
   }
 
@@ -160,7 +167,7 @@ const ProjectGrid = () => {
   const body = (
      <div style={modalStyle} className={classes.paper}>
        {editFlag === false ? <h2>Add Project Here!</h2> : <h2>Update {editProjectData.projectName} Project!</h2>}
-       {editFlag === false ? <AddProject onAdd={addProject} /> : <EditProject projectData={editProjectData} onUpdate={updateProject}/>}
+       {editFlag === false ? <AddProject onAdd={addProject} userId={userId} /> : <EditProject projectData={editProjectData} onUpdate={updateProject} userId={userId} />}
      </div>
    );
 

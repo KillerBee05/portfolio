@@ -6,6 +6,8 @@ import ViewProjects from './viewPortfolioData/ViewProjects'
 // Loading Spinner
 import MoonLoader from "react-spinners/MoonLoader"
 import { css } from "@emotion/core"
+// router
+import { BrowserRouter as Router, Route, Switch, Link, useHistory, useParams } from 'react-router-dom'
 
 // Project Grid Stlyes
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +58,7 @@ const ViewProjectGrid = () => {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true);
   const [color, setColor] = useState("#f97171");
+  const { id } = useParams()
 
   // Get project data & set loading spinner to false
   useEffect(() => {
@@ -69,7 +72,7 @@ const ViewProjectGrid = () => {
 
   // fetch project data
   const fetchProjects = async () => {
-    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/projectApi')
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/projectApi?${id}`)
     const data = await response.json()
 
     return data

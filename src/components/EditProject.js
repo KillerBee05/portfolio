@@ -4,7 +4,7 @@ import AddButton from './AddButton'
 import ProgressBar from './ProgressBar'
 
 // Edit project component
-const EditProject = ({projectData, onUpdate}) => {
+const EditProject = ({ projectData, onUpdate, userId }) => {
   const [projectName, setProjectName] = useState(projectData.projectName)
   const [description, setDescription] = useState(projectData.description)
   const [image, setImage] = useState(projectData.image)
@@ -24,7 +24,7 @@ const EditProject = ({projectData, onUpdate}) => {
       setUrl(url)
     }
 
-    onUpdate({id, projectName, image, description, createdAt, url, link})
+    onUpdate({userId, id, projectName, image, description, createdAt, url, link})
   }
 
   // Checks & verifies images being uploaded
