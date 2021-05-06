@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Add skill component
-const AddSkill = ({ onAdd, groupId, groups }) => {
+const AddSkill = ({ onAdd, groupId, groups, userId }) => {
   const classes = useStyles();
   const [skills, setSkills] = useState('')
   // Send skill data to api call in the SkillGrid component
@@ -49,7 +49,7 @@ const AddSkill = ({ onAdd, groupId, groups }) => {
       newSkills = [skills]
     }
     // Send skill data to api call to SkillGrid component
-    onAdd({ id, group:filteredRecord[0].group, skills:newSkills })
+    onAdd({ userId, id, group:filteredRecord[0].group, skills:newSkills })
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',

@@ -142,8 +142,8 @@ const SkillList = () => {
   const body = (
      <div style={modalStyle} className={classes.paper}>
        {editFlag === false ? <AddGroup onAdd={addGroup} userId={userId} /> : <EditGroup onEdit={updateGroup} groupData={editGroupData} userId={userId} />}
-       {groups.length > 0 && editFlag === false ? <SelectGroup getGroupId={fetchSelectedGroupId} userId={userId}/> : ''}
-       {groups.length > 0 && editFlag === false ? <AddSkill groups={groups} onAdd={updateGroup} addSkill={true} groupId={groupSelected} />  : ''}
+       {groups.length > 0 && editFlag === false ? <SelectGroup getGroupId={fetchSelectedGroupId} userId={userId} /> : ''}
+       {groups.length > 0 && editFlag === false ? <AddSkill groups={groups} onAdd={updateGroup} addSkill={true} groupId={groupSelected} userId={userId} />  : ''}
      </div>
    );
 

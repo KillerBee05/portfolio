@@ -18,7 +18,7 @@ const SelectGroup = ({ getGroupId, userId }) => {
 
   // Fetch group data
   const fetchGroupOptions = async () => {
-    const response = await fetch(`https://us-central1-portfolio-7ed56.cloudfunctions.net/groupApi/selectGroup/auth?${userId}`, {
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/groupApi/selectGroup/auth?${userId}`, {
       method: 'GET',
       headers: {
         'authorization': 'Bearer ' + localStorage.getItem('token'),
