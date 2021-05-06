@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 // Introduction component
 const Introduction = () => {
   const classes = useStyles();
+  const [userId, setUserId] = useState(localStorage.getItem('userId'))
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const onEditorStateChange = (editorState) => {
     const content = editorState.getCurrentContent()
@@ -29,7 +30,7 @@ const Introduction = () => {
       const introductionData = await fetchIntroduction()
       // if theres data convert it
       if(introductionData){
-        setEditorState(EditorState.createWithContent(convertFromRaw(introductionData.introduction.content)))
+        setEditorState(EditorState.createWithContent(convertFromRaw(introductionData.content)))
       }
     }
     getIntroduction()
@@ -37,7 +38,13 @@ const Introduction = () => {
 
   // Fetch introduction data
   const fetchIntroduction = async () => {
-    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/introApi')
+    debugger;
+    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/introApi/auth?${userId}`, {
+      method: 'GET',
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
     const data = await response.json()
     return data
   }
@@ -50,11 +57,25 @@ const Introduction = () => {
         'Content-type': 'application/json',
         'authorization': 'Bearer ' + localStorage.getItem('token'),
       },
-      body: JSON.stringify({content: fixData})
+      body: JSON.stringify({userId: userId, content: fixData})
     })
     const data = await response.json()
     // debug data being sent back
-    // const data = await response.json()
+    // debounce auto save time
+  }, 5000)
+
+  // save introduction data -- debounce auto saves data after 5 seconds
+  const updateIntroduction = debounce(async (fixData) => {
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/introApi', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+      body: JSON.stringify({userId: userId, content: fixData})
+    })
+    const data = await response.json()
+    // debug data being sent back
     // debounce auto save time
   }, 5000)
 

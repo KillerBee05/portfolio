@@ -17,6 +17,7 @@ const authMiddleware = require('./authMiddleware');
 
 // Fetch data from firestore
 projectApp.get('/', async (req, res) => {
+  const userId = res.req._parsedUrl.query;
   const snapshot = await db.collectionGroup('projects').where('userId', '==', userId).orderBy('createdAt', 'asc').get();
   // 5ZnEuZ2lD6O68k0vOUrmetY4OQm2
   // kNEjkZXvzmSLdpa96IqcY9wRftx2

@@ -10,12 +10,15 @@ const admin = require('firebase-admin');
 const { Storage } = require('@google-cloud/storage');
 
 const db = admin.firestore();
+const client = require('firebase-tools');
 // Auth Middleware
 const authMiddleware = require('./authMiddleware');
 
 // Fetch data from firestore
 introApp.get('/', async (req, res) => {
-  const docRef = await db.collection('/introduction').doc("text");
+  // const userId = req.body.userId;
+  // const userId = res.req._parsedUrl.query;
+  const docRef = await db.collectionGroup('introduction').where('userId', '==', userId);
 
   docRef.get().then((doc) => {
     if (doc.exists) {
@@ -27,10 +30,39 @@ introApp.get('/', async (req, res) => {
   })
 });
 
+// Fetch data from firestore
+introApp.get('/auth', async (req, res) => {
+  const userId = res.req._parsedUrl.query;
+  console.log(userId)
+  // const collectionPath = `users/${userId}/introduction/text`;
+  const docRef = await db.collectionGroup('introduction').where('userId', '==', userId);
+
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+        const introduction = doc.data();
+        console.log("whats good")
+      res.status(200).send(introduction);
+    } else {
+      console.log("OOOOOHHH NOthing")
+      res.status(200).send('');
+    }
+  })
+});
+
 // Post data to firestore
 introApp.post('/', authMiddleware, async (req, res) => {
   const introduction = req.body;
-  await db.collection('introduction').doc('text').set({introduction})
+  console.log(introduction)
+  await db.collection('users').doc(introduction.userId).collection('introduction').add(introduction)
+  // TODO push id with data, so we can delete right after id
+  res.status(201).send(introduction);
+});
+
+// Post data to firestore
+introApp.put('/', authMiddleware, async (req, res) => {
+  const introduction = req.body;
+  console.log(introduction)
+  await db.collection('users').doc(introduction.userId).collection('introduction').doc("mv38JC6Dg26cD2QW0XeO").update(introduction)
   // TODO push id with data, so we can delete right after id
   res.status(201).send(introduction);
 });

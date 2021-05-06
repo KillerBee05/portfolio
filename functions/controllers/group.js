@@ -16,6 +16,7 @@ const authMiddleware = require('./authMiddleware');
 
 // Fetch data from firestore
 groupApp.get('/', async (req, res) => {
+  // const userId = res.req._parsedUrl.query;
   const snapshot = await db.collectionGroup('/groups').where('userId', '==', userId).orderBy('createdAt', 'asc').get();
 
   let groups = [];
