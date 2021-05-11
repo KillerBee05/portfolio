@@ -60,7 +60,6 @@ const ViewInfoCardGrid = () => {
 
   // fetch infoCard data
   const fetchInfoCards = async () => {
-    debugger;
     const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/infoCardApi?${id}`)
     const data = await response.json()
 

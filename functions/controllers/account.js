@@ -15,25 +15,9 @@ const client = require('firebase-tools');
 const authMiddleware = require('./authMiddleware');
 
 // Fetch data from firestore
-introApp.get('/', async (req, res) => {
+introApp.get('/', authMiddleware, async (req, res) => {
   let userId = res.req._parsedUrl.query;
-  const snapshot = await db.collection('users').doc(userId).collection('introduction').get();
-
-  let introduction = [];
-  snapshot.forEach((doc) => {
-    let id = doc.id;
-    let data = doc.data();
-
-    introduction.push({ id, ...data});
-  });
-
-  res.status(200).send(introduction);
-});
-
-// Fetch data from firestore
-introApp.get('/auth', authMiddleware, async (req, res) => {
-  const userId = res.req._parsedUrl.query;
-  const snapshot = await db.collectionGroup('introduction').where('userId', '==', userId).get();
+  const snapshot = await db.collection('account').doc(userId).collection('introduction').get();
 
   let introduction = [];
   snapshot.forEach((doc) => {
@@ -60,17 +44,17 @@ introApp.put('/', authMiddleware, async (req, res) => {
   const introduction = req.body;
   const userId = introduction.userId;
   console.log(introduction)
-  await db.collection('users').doc(userId).collection('introduction').doc(introduction.id).update(introduction)
+  await db.collection('users').doc(userId).collection('account').doc(introduction.id).update(introduction)
   // TODO push id with data, so we can delete right after id
   res.status(201).send(introduction);
 });
 
-// Delete selected data from firestore
+// Delete account data from firestore
 introApp.delete('/:id', authMiddleware, async (req, res) => {
   let userId = res.req.user.uid;
   let id = req.params.id;
 
-  let collectionPath = `users/${userId}/introduction/${id}`;
+  let collectionPath = `users/${userId}/account/${id}`;
   // console.log(collectionPath)
   // let collectionPath = db.collection('users').doc(req.params.userId).collection('infoCards').doc(req.params.id).delete();
   await client.firestore

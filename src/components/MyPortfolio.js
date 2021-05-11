@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 // Components
-
 import ProjectGrid from './ProjectGrid'
-import Introduction from './Introduction'
+import IntroductionGrid from './IntroductionGrid'
 import SkillDrawer from './SkillDrawer'
 import SkillList from './SkillList'
 import InfoCardGrid from './InfoCardGrid'
+import Header from './Header'
 import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom'
 
 const MyPortfolio = () => {
@@ -48,8 +48,9 @@ const MyPortfolio = () => {
 
   return(
     <div>
+      <Header />
       <InfoCardGrid />
-      <Introduction />
+      <IntroductionGrid />
       <ProjectGrid />
     </div>
   )

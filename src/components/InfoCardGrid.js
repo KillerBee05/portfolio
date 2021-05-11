@@ -60,7 +60,7 @@ const InfoCardGrid = () => {
   const classes = useStyles();
   const [infoCards, setInfoCards] = useState([])
   const [editFlag, setEditFlag] = useState(false)
-  const [editInfoCards, setEditInfoCards] = useState()
+  // const [editInfoCards, setEditInfoCards] = useState()
   const [editInfoCardData, setEditInfoCardData] = useState()
   const [modalStyle] = useState(getModalStyle)
   const [open, setOpen] = useState(false)

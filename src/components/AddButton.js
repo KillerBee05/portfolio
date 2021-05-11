@@ -4,6 +4,8 @@ import AddCircleIcon from '@material-ui/icons/AddCircle'
 import PublishIcon from '@material-ui/icons/Publish'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import AddBoxIcon from '@material-ui/icons/AddBox'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { makeStyles } from '@material-ui/core/styles'
 
 // Style button colors
@@ -20,13 +22,19 @@ const useStyles = makeStyles((theme) => ({
   infoCardButton: {
     color: '#8ad6cc'
   },
-  pdfButton: {
+  logOutButton: {
+    color: '#000'
+  },
+  introductionButton: {
+    color: '#385a7c'
+  },
+  accountButton: {
     color: '#000'
   }
 }));
 
 // Reusable button component
-const AddButton = ({onClick, style, upload, addProject, addSkill, addInfoCard, addPdf, type}) => {
+const AddButton = ({onClick, style, upload, addProject, addSkill, addInfoCard, addIntroduction, logOut, account, type}) => {
   // Type prop determines whether its a submit or an onClick
   const classes = useStyles();
   return(
@@ -41,7 +49,9 @@ const AddButton = ({onClick, style, upload, addProject, addSkill, addInfoCard, a
           { addProject && <AddCircleIcon className={classes.projectButton} fontSize="large"/> }
           { addSkill && <AddBoxIcon className={classes.skillButton} fontSize="large"/> }
           { addInfoCard &&  <AddCircleIcon className={classes.infoCardButton} fontSize="large"/> }
-          { addPdf && <AddCircleIcon className={classes.pdfButton} fontSize="small"/> }
+          { addIntroduction && <AddCircleIcon className={classes.introductionButton} fontSize="large"/> }
+          { account && <AccountCircleIcon className={classes.accountButton} fontSize="medium"/> }
+          { logOut && <ExitToAppIcon className={classes.logOutButton} fontSize="medium"/> }
         </Button>
       }
     </div>

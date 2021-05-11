@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 });
 
 const ViewInfoCards = ({ infoCards }) => {
-
   const classes = useStyles();
   return(
     <div className={classes.mainDiv}>

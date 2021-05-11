@@ -2,24 +2,18 @@ import { useState, useEffect } from 'react'
 // Material UI
 import { AppBar, Toolbar, Link, Switch, FormControlLabel, Drawer, Typography, Modal, Grid, makeStyles, withStyles } from '@material-ui/core'
 // components
-import SkillDrawer from './SkillDrawer'
-import SkillList from './SkillList'
-import AddButton from './AddButton'
-import MobileNavDrawer from './MobileNavDrawer'
-import UploadPDF from './UploadPDF'
+import ViewSkillDrawer from './ViewSkillDrawer'
+import ViewSkillList from './ViewSkillList'
+import AddButton from '../AddButton'
+import UploadPDF from '../UploadPDF'
 // Icons
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import LinkedInIcon from '@material-ui/icons/LinkedIn'
 import GitHubIcon from '@material-ui/icons/GitHub'
 import DescriptionIcon from '@material-ui/icons/Description'
-import AccountBoxIcon from '@material-ui/icons/AccountBox'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 // Style colors
 import { purple, blue, pink, green, red } from '@material-ui/core/colors'
-// Router
-import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 
 // Header Styles
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   socialPadding: {
     paddingLeft: "1em",
-    '@media (max-width: 400px)' : {
+    '@media (max-width: 320px)' : {
       paddingLeft: '15px',
     }
   },
@@ -50,19 +44,10 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  hideIcons: {
+  hide: {
     '@media (max-width: 400px)' : {
       display:'none'
     }
-  },
-  mobileNav: {
-    '@media (min-width: 450px)' : {
-      display:'none',
-      marginRight: theme.spacing(2),
-    },
-    '@media (max-width: 400px)' : {
-      marginRight: theme.spacing(0),
-    },
   }
 }));
 
@@ -95,38 +80,27 @@ const PurpleSwitch = withStyles({
 })(Switch);
 
 // Header component
-const Header = () => {
+const ViewHeader = () => {
   const classes = useStyles();
-  const [userId, setUserId] = useState(localStorage.getItem('userId'))
   const [showSkills, setShowSkills] = useState(false)
   const [openDrawer, setOpenDrawer] = useState(false)
   const [open, setOpen] = useState(false)
   const [modalStyle] = useState(getModalStyle)
-  const [pdf, setPdf] = useState([])
-  const [openNav, setOpenNav] = useState(false)
-  const history = useHistory()
+  const [pdf, setPdf] = useState(null)
+
 
   // Open add pdf Modal
-  const handleOpenPdf = () => {
+  const handleOpen = () => {
    setOpen(true)
   };
 
   // Close Modal
-  const handleClosePdf = () => {
+  const handleClose = () => {
      setOpen(false)
   };
 
   // Show skill drawer
-  const handleChangeMobileNav = () => {
-    if(openNav === true){
-      setOpenNav(false)
-    } else {
-      setOpenNav(true)
-    }
-  }
-
-  // Show skill drawer
-  const handleChangeSkills = () => {
+  const handleChange = () => {
     setShowSkills(!showSkills)
     if(showSkills){
       setOpenDrawer(false);
@@ -146,12 +120,7 @@ const Header = () => {
 
   // fetch PDF
   const fetchPDF = async () => {
-    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/pdfApi/auth?${userId}`, {
-      method: 'GET',
-      headers: {
-        'authorization': 'Bearer ' + localStorage.getItem('token'),
-      },
-    })
+    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/pdfApi')
     const data = await response.json()
 
     return data
@@ -177,41 +146,16 @@ const Header = () => {
     setOpen(true)
   }
 
-  const account = () => {
-    alert('here we goooo')
-    history.push("/profile")
-  }
-  // log user out
-  const logUserOut = () => {
-    debugger;
-    alert("are you sure you want to log out?")
-    // clear local storage token & route user to sign in
-    localStorage.setItem("token", '')
-    localStorage.setItem("userId", '')
-    history.push("/signIn")
-  }
-
-  // Setting up Modal body
-  const body = (
-     <div style={modalStyle} className={classes.paper}>
-       <h2>Upload PDF</h2>
-       <UploadPDF uploadPDF={addPDF} />
-     </div>
-  );
-
   return(
     <AppBar position="static" className={classes.background}>
       <Toolbar>
-        <IconButton edge="start" onClick={handleChangeMobileNav} className={classes.mobileNav} color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
         <Typography variant="h5" className={classes.blackText}>
             Portfolio
         </Typography>
         <section className={classes.rightToolbar}>
             <FormControlLabel
               value="top"
-              control={<PurpleSwitch checked={showSkills} onChange={handleChangeSkills} name="showSkills" />}
+              control={<PurpleSwitch checked={showSkills} onChange={handleChange} name="showSkills" />}
               label="Skills"
               labelPlacement="bottom"
               className={classes.blackText}
@@ -222,32 +166,16 @@ const Header = () => {
           <Link className={classes.icons}  href="https://github.com/KillerBee05" target="_blank">
             <GitHubIcon className={classes.socialPadding}/>
           </Link>
-          { pdf.length > 0 &&
-            <Link className={classes.icons} href={pdf[0].url} target="_blank">
+          { pdf !== null &&
+            <Link className={classes.icons} href={pdf.url} target="_blank">
               <DescriptionIcon className={classes.socialPadding} />
             </Link>
           }
         </section>
-        <div className={classes.hideIcons} >
-          <AddButton account={true} onClick={account} />
-        </div>
-        <div className={classes.hideIcons} >
-          <AddButton logOut={true} onClick={logUserOut} />
-        </div>
       </Toolbar>
-      <SkillDrawer open={openDrawer}/>
-      <MobileNavDrawer toggle={handleChangeMobileNav} open={openNav} />
-      <Modal
-        open={open}
-        onClose={handleClosePdf}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        justify="center"
-      >
-        {body}
-      </Modal>
+      <ViewSkillDrawer switch={handleChange} open={openDrawer}/>
     </AppBar>
   )
 }
 
-export default Header
+export default ViewHeader

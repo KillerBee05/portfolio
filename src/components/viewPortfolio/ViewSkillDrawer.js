@@ -2,8 +2,8 @@ import React from 'react'
 // Material UI
 import { Drawer, makeStyles } from '@material-ui/core'
 // Imported Components
-import Groups from './Groups'
-import SkillList from './SkillList'
+import ViewGroups from './viewPortfolioData/ViewGroups'
+import ViewSkillList from './ViewSkillList'
 
 // Skill Drawer styles
 const useStyles = makeStyles((theme) => ({
@@ -13,20 +13,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 // Skill Drawer component
-const SkillDrawer = ({ open }) => {
+const ViewSkillDrawer = ({ setOpen, open }) => {
   const classes = useStyles();
   return(
     <Drawer
         variant="persistent"
         anchor="bottom"
         open={open}
+        onClick={setOpen}
         classes={{
           paper: classes.drawerPaper
         }}
       >
-      <SkillList />
+      <ViewSkillList />
     </Drawer>
   )
 }
 
-export default SkillDrawer
+export default ViewSkillDrawer

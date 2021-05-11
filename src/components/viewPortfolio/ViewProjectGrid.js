@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   mainDiv: {
-    marginTop: "3em",
+    marginTop: "1em",
     backgroundColor: '#fff'
   },
   button: {
@@ -81,7 +81,7 @@ const ViewProjectGrid = () => {
   return(
     <div className={classes.mainDiv}>
       { loading === true ?
-        <MoonLoader color={color} loading={loading} css={override} size={35}/> :
+        "":
         projects.length > 0 ? <ViewProjects projects={projects} /> : <p className={classes.noProjects}>No projects at the moment</p>
       }
     </div>

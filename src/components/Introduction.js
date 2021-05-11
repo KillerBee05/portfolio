@@ -1,95 +1,81 @@
 import {useState, useEffect} from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
-import { Editor } from 'react-draft-wysiwyg'
-import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import debounce from 'lodash/debounce'
+// Material UI
+import { Paper, Grid, Typography, IconButton, Divider, makeStyles } from '@material-ui/core'
+// Icons
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import EditIcon from '@material-ui/icons/Edit'
+import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows'
+import DeleteIcon from '@material-ui/icons/Delete'
+import ClearIcon from '@material-ui/icons/Clear'
+// Sweet alerts
+import Swal from 'sweetalert2'
 
-// Introduction Styles
-const useStyles = makeStyles((theme) => ({
-  color: {
-    backgroundColor: '#fff'
-  }
-}));
+// InfoCard styles
+const useStyles = makeStyles({
+    paper: {
+      minHeight: "25vh"
+    },
+    deleteStyle:  {
+      marginLeft: "44%",
+      marginTop: "2em"
+    },
+    mainDiv: {
+      padding: "5%"
+    },
+    description: {
+      color: "#000",
+      marginTop: 25,
+      whiteSpace: "pre-line"
+    },
+    title: {
+      color: "#000",
+      marginTop: 10
+    }
+});
 
 // Introduction component
-const Introduction = () => {
+const Introduction = ({ introduction, onDelete, onEdit }) => {
   const classes = useStyles();
-  const [userId, setUserId] = useState(localStorage.getItem('userId'))
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
-  const onEditorStateChange = (editorState) => {
-    const content = editorState.getCurrentContent()
-    const fixData = convertToRaw(content)
-    saveIntroduction(fixData)
-    setEditorState(editorState)
-  };
 
-  // Gets introduction data when component renders
-  useEffect(() => {
-    const getIntroduction = async () => {
-      const introductionData = await fetchIntroduction()
-      // if theres data convert it
-      if(introductionData){
-        setEditorState(EditorState.createWithContent(convertFromRaw(introductionData.content)))
+  const deleteIntroduction = (introduction) => {
+      Swal.fire({
+      title: 'Remove Info Card?',
+      text: "Remove Introduction ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#f97171',
+      cancelButtonColor: '#385a7c',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDelete(introduction.id)
+        Swal.fire(
+          'Deleted!',
+          'Introduction has been removed',
+          'success'
+        )
       }
-    }
-    getIntroduction()
-  }, [])
-
-  // Fetch introduction data
-  const fetchIntroduction = async () => {
-    debugger;
-    const response = await fetch(`http://localhost:5001/portfolio-7ed56/us-central1/introApi/auth?${userId}`, {
-      method: 'GET',
-      headers: {
-        'authorization': 'Bearer ' + localStorage.getItem('token'),
-      },
     })
-    const data = await response.json()
-    return data
   }
-
-  // save introduction data -- debounce auto saves data after 5 seconds
-  const saveIntroduction = debounce(async (fixData) => {
-    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/introApi', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        'authorization': 'Bearer ' + localStorage.getItem('token'),
-      },
-      body: JSON.stringify({userId: userId, content: fixData})
-    })
-    const data = await response.json()
-    // debug data being sent back
-    // debounce auto save time
-  }, 5000)
-
-  // save introduction data -- debounce auto saves data after 5 seconds
-  const updateIntroduction = debounce(async (fixData) => {
-    const response = await fetch('http://localhost:5001/portfolio-7ed56/us-central1/introApi', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        'authorization': 'Bearer ' + localStorage.getItem('token'),
-      },
-      body: JSON.stringify({userId: userId, content: fixData})
-    })
-    const data = await response.json()
-    // debug data being sent back
-    // debounce auto save time
-  }, 5000)
-
   return(
-    <div className={classes.color} style={{paddingTop: "2em"}} >
-      <Editor
-        editorState={editorState}
-        toolbarClassName="toolbarClassName"
-        wrapperClassName="wrapperClassName"
-        editorClassName="editorClassName"
-        onEditorStateChange={onEditorStateChange}
-        toolbarHidden={false}
-        readOnly={false}
-      />
+    <div className={classes.mainDiv}>
+      <Grid container spacing={4} justify="center">
+        {introduction.map((introduction, index) => (
+          <Grid key={index} item xs={12} md={4} xl={3}>
+            <Grid container spacing={5} justify="center">
+              <IconButton aria-label="edit" onClick={() => onEdit(introduction)}>
+                <EditIcon />
+              </IconButton>
+            </Grid>
+            <Typography variant="h5" color="textSecondary" component="h2" align="center" className={classes.description}>
+              { introduction.introduction }
+            </Typography>
+            <IconButton aria-label="delete" className={classes.deleteStyle} onClick={() => deleteIntroduction(introduction)}>
+              <DeleteIcon/>
+            </IconButton>
+          </Grid>
+        ))}
+      </Grid>
     </div>
   )
 }
