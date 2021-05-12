@@ -22,7 +22,8 @@ const KanbanBoard = () => {
     var moveBack = currentStage - 1
     if(currentStage === 0){
      var moveBack = currentStage
-    }
+   }
+   // debugger;
     for (var index in tasks) {
       if (tasks[index].name == task.name) {
          tasks[index].stage = moveBack;
@@ -40,12 +41,13 @@ const KanbanBoard = () => {
     if(currentStage === 3){
      var moveFoward = currentStage
     }
-    for (var index in tasks) {
-      if (tasks[index].name == task.name) {
+    debugger;
+    // for (var index in tasks) {
+      // if (tasks[index].name == task.name) {
          tasks[index].stage = moveFoward;
-         break;
-      }
-    }
+         // break;
+      // }
+    // }
 
     newData.push(...tasks)
     setTasks(newData)

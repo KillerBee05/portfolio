@@ -2,7 +2,7 @@ import { useState ,useEffect } from 'react'
 import Header from './components/Header'
 import MyPortfolio from './components/MyPortfolio'
 import ViewPortfolioProfile from './components/viewPortfolio/ViewPortfolioProfile'
-import Account from './pages/Account'
+import AccountGrid from './pages/AccountGrid'
 import SignInGrid from './pages/SignInGrid'
 import KanbanBoard from './components/KanbanBoard'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
@@ -37,8 +37,12 @@ function App() {
               <SignInGrid />
             </Route>
             <Route path="/profile">
-              <Account />
+              <AccountGrid />
             </Route>
+            <Route path="/kan">
+              <KanbanBoard />
+            </Route>
+
           </Switch>
         </MuiThemeProvider>
       </div>
