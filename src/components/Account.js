@@ -25,21 +25,27 @@ const useStyles = makeStyles((theme) => ({
   button: {
     display: 'block',
     margin: '0 auto'
+  },
+  topSpace: {
+    padding: '1em'
+  },
+  socials: {
+    float: "right"
   }
 }));
-const AccountGrid = () => {
+const Account = () => {
   const classes = useStyles();
 
   return(
-    <div className={classes.mainDiv}>
-      <form noValidate autoComplete="off">
-        <h1> Welcome to your portfolio account profile! </h1>
-        <TextField id="standard-basic" label="Standard"  fullWidth/>
-        <TextField id="filled-basic" label="Filled" variant="filled" fullWidth/>
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" fullWidth/>
+    <div>
+      <form noValidate autoComplete="off" className={classes.topSpace}>
+        <h1 className={classes.topSpace}> Welcome to your portfolio account profile! </h1>
+        <TextField className={classes.socials} id="standard-basic" label="Standard" fullWidth />
+        <TextField id="filled-basic" label="Standard" className={classes.socials} fullWidth />
+        <TextField className={classes.socials} id="outlined-basic" label="Standard" fullWidth />
       </form>
     </div>
   )
 }
 
-export default AccountGrid
+export default Account

@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   mainDiv: {
-    backgroundColor: '#fff'
+    marginTop: "2em",
+    backgroundColor: "#fff",
+    height:"800px"
   },
   button: {
     display: 'block',
