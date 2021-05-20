@@ -30,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
     padding: '1em'
   },
   socials: {
-    float: "right"
+    float: "right",
+    width: "25%",
+    marginLeft: "75%"
   }
 }));
 const Account = () => {
@@ -38,11 +40,24 @@ const Account = () => {
 
   return(
     <div>
+
       <form noValidate autoComplete="off" className={classes.topSpace}>
         <h1 className={classes.topSpace}> Welcome to your portfolio account profile! </h1>
-        <TextField className={classes.socials} id="standard-basic" label="Standard" fullWidth />
-        <TextField id="filled-basic" label="Standard" className={classes.socials} fullWidth />
-        <TextField className={classes.socials} id="outlined-basic" label="Standard" fullWidth />
+        <Grid container spacing={24} >
+          <Grid className={classes.socials}>
+            <TextField id="standard-basic" label="Standard" fullWidth />
+          </Grid>
+        </Grid>
+        <Grid container spacing={24} >
+          <Grid className={classes.socials} >
+            <TextField id="standard-basic" label="Standard" fullWidth />
+          </Grid>
+        </Grid>
+        <Grid container spacing={24}>
+          <Grid className={classes.socials} >
+            <TextField id="standard-basic" label="Standard" fullWidth />
+          </Grid>
+        </Grid>
       </form>
     </div>
   )

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainDiv: {
     // marginTop: "1em",
-    backgroundColor: '#fff'
+    // backgroundColor: '#fff'
   },
   button: {
     display: 'block',
