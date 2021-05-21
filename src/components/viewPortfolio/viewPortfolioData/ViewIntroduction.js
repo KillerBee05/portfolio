@@ -20,7 +20,7 @@ const ViewIntroduction = ({ introduction }) => {
     <div className={classes.mainDiv}>
     <Grid container spacing={4} justify="center">
       {introduction.map((introduction, index) => (
-        <Grid key={index} item xs={12} md={4} xl={3}>
+        <Grid key={index} item xs={12} md={12} xl={12}>
           <Typography variant="h5" color="textSecondary" component="h2" align="center" className={classes.description}>
             { introduction.introduction }
           </Typography>

@@ -16,8 +16,8 @@ const ViewPortfolioProfile = () => {
   return(
     <div>
       <ViewHeader />
-      <ViewInfoCardGrid />
       <ViewIntroductionGrid />
+      <ViewInfoCardGrid />
       <ViewProjectGrid />
     </div>
   )
