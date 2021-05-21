@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Switch, Link, useHistory, useParams } f
 // Introduction Styles
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
-      marginTop: "3em",
+      
       backgroundColor: '#fff'
     },
     button: {
