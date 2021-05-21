@@ -16,7 +16,7 @@ const useStyles = makeStyles({
       minHeight: "25vh"
     },
     deleteStyle:  {
-      marginLeft: "44%",
+      marginLeft: "48.5%",
       marginTop: "2em"
     },
     mainDiv: {
@@ -59,9 +59,9 @@ const Introduction = ({ introduction, onDelete, onEdit }) => {
   }
   return(
     <div className={classes.mainDiv}>
-      <Grid container spacing={4} justify="center">
+      <Grid container>
         {introduction.map((introduction, index) => (
-          <Grid key={index} item xs={12} md={4} xl={3}>
+          <Grid key={index}>
             <Grid container spacing={5} justify="center">
               <IconButton aria-label="edit" onClick={() => onEdit(introduction)}>
                 <EditIcon />

@@ -20,7 +20,11 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   mainDiv: {
-    backgroundColor: '#fff'
+    paddingLeft:"10%",
+    paddingRight:"10%"
+  },
+  header: {
+    padding: '1em',
   },
   button: {
     display: 'block',
@@ -31,32 +35,24 @@ const useStyles = makeStyles((theme) => ({
   },
   socials: {
     float: "right",
-    width: "25%",
-    marginLeft: "75%"
+    marginLeft: "50%",
+    width:"350px"
   }
 }));
 const Account = () => {
   const classes = useStyles();
 
   return(
-    <div>
-
+    <div className={classes.mainDiv}>
       <form noValidate autoComplete="off" className={classes.topSpace}>
-        <h1 className={classes.topSpace}> Welcome to your portfolio account profile! </h1>
-        <Grid container spacing={24} >
+        <h1 className={classes.header}> Welcome to your portfolio account profile! </h1>
+
+        <Grid>
           <Grid className={classes.socials}>
-            <TextField id="standard-basic" label="Standard" fullWidth />
+              <TextField  id="standard-basic" label="Github Link"  />
+              <TextField  id="standard-basic" label="Github Link"  />
           </Grid>
-        </Grid>
-        <Grid container spacing={24} >
-          <Grid className={classes.socials} >
-            <TextField id="standard-basic" label="Standard" fullWidth />
-          </Grid>
-        </Grid>
-        <Grid container spacing={24}>
-          <Grid className={classes.socials} >
-            <TextField id="standard-basic" label="Standard" fullWidth />
-          </Grid>
+
         </Grid>
       </form>
     </div>
