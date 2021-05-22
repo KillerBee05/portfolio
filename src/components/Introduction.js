@@ -24,8 +24,9 @@ const useStyles = makeStyles({
     },
     description: {
       color: "#000",
-      marginTop: 25,
-      whiteSpace: "pre-line"
+      // marginTop: 10,
+      whiteSpace: "pre-line",
+      padding: "4em"
     },
     title: {
       color: "#000",
@@ -61,18 +62,20 @@ const Introduction = ({ introduction, onDelete, onEdit }) => {
     <div className={classes.mainDiv}>
       <Grid container>
         {introduction.map((introduction, index) => (
-          <Grid key={index}>
-            <Grid container spacing={5} justify="center">
-              <IconButton aria-label="edit" onClick={() => onEdit(introduction)}>
-                <EditIcon />
+          <Grid key={index} >
+            <Paper  className={ classes.paper } elevation={24}>
+              <Grid container spacing={5} justify="center">
+                <IconButton aria-label="edit" onClick={() => onEdit(introduction)}>
+                  <EditIcon />
+                </IconButton>
+              </Grid>
+              <Typography variant="h6" color="textSecondary" className={classes.description}>
+                { introduction.introduction }
+              </Typography>
+              <IconButton aria-label="delete" className={classes.deleteStyle} onClick={() => deleteIntroduction(introduction)}>
+                <DeleteIcon/>
               </IconButton>
-            </Grid>
-            <Typography variant="h5" color="textSecondary" component="h2" align="center" className={classes.description}>
-              { introduction.introduction }
-            </Typography>
-            <IconButton aria-label="delete" className={classes.deleteStyle} onClick={() => deleteIntroduction(introduction)}>
-              <DeleteIcon/>
-            </IconButton>
+            </Paper>
           </Grid>
         ))}
       </Grid>

@@ -21,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
   mainDiv: {
     marginTop: "3em",
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    paddingLeft: "5%",
+    paddingRight:  "5%",
   },
   button: {
     color: '#fff'
